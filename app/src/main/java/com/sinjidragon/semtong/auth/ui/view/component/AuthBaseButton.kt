@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sinjidragon.semtong.ui.theme.dropShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
@@ -30,14 +31,17 @@ fun AuthBaseButton(
 {
     Box(
         modifier = modifier
-            .padding(horizontal = 39.dp)
             .fillMaxWidth()
             .fillMaxHeight(0.08f)
+            .padding(horizontal = 39.dp)
+            .dropShadow(shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
             .background(color)
             .clickable(
                 onClick = onClick
-            ),
+            )
+
+
     ){
         Text(
             text = text,
