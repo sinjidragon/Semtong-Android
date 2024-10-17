@@ -33,7 +33,7 @@ fun AuthBaseButton(
         modifier = modifier
             .fillMaxWidth()
             .fillMaxHeight(0.08f)
-            .padding(horizontal = 39.dp)
+            .padding(horizontal = 40.dp)
             .dropShadow(shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
             .background(color)
