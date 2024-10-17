@@ -86,7 +86,7 @@ fun IntroScreen() {
         Column (
             Modifier
                 .align(Alignment.BottomCenter)
-                .offset(y = (-80).dp)
+                .offset(y = (-50).dp)
         ){
             AuthBaseButton(
                 modifier = Modifier,
@@ -104,12 +104,6 @@ fun IntroScreen() {
         }
     }
 }
-
-
-
-
-
-
 @Preview
 @Composable
 fun IntroScreenPreview() {
