@@ -32,7 +32,7 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 fun IntroScreen() {
     Box(modifier = Modifier
         .fillMaxSize()
-        .background(Color(0xFFFCD1DD))
+        .background(mainColor)
         .systemBarsPadding()
     )
     {
@@ -50,7 +50,7 @@ fun IntroScreen() {
                 .fillMaxWidth(0.65f)
                 .aspectRatio(ratio = 1f)
                 .rotate(-9f)
-                .offset(x = -60.dp)
+                .offset(x = (-60).dp)
         )
         Image(painter = painterResource(id = R.drawable.wallet_card_coin), contentDescription = null,
             modifier = Modifier
@@ -58,7 +58,7 @@ fun IntroScreen() {
                 .fillMaxWidth(0.65f)
                 .aspectRatio(ratio = 1f)
                 .rotate(9f)
-                .offset(y = -80.dp, x = 40.dp)
+                .offset(y = (-80).dp, x = 40.dp)
         )
     }
     Box(modifier = Modifier
