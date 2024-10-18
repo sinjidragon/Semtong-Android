@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -59,13 +60,15 @@ fun AuthTextField(
         modifier = modifier
             .padding(horizontal = 40.dp)
             .height(45.dp)
-            .background(gray)
             .border(
                 width = 1.dp,
                 color = Color(0xFFEDEDED),
                 shape = RoundedCornerShape(8.dp)
             )
             .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(gray)
+
     ) {
         Image(
             painter = painterResource(id = icon),
