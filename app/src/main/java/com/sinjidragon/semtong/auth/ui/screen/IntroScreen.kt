@@ -98,7 +98,7 @@ fun IntroScreen() {
             AuthBaseButton(
                 modifier = Modifier,
                 color = Color.White,
-                text = "로그인",
+                text = "회원가입",
                 onClick = {TODO()}
             )
         }
