@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,6 +33,7 @@ fun IntroScreen() {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color(0xFFFCD1DD))
+        .systemBarsPadding()
     )
     {
         Image(painter = painterResource(id = R.drawable.hand_card_money_gift_atm), contentDescription = null,
