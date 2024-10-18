@@ -42,7 +42,7 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
 
 @Composable
-fun AuthTextField(
+fun BaseTextField(
     modifier: Modifier = Modifier,
     onTextChange: (String) -> Unit,
     text: String,
@@ -170,8 +170,8 @@ fun AuthTextField(
     showBackground = true
 )
 @Composable
-fun AuthTextFieldPreview(){
-    AuthTextField(
+fun BaseTextFieldPreview(){
+    BaseTextField(
         modifier = Modifier,
         onTextChange = {},
         text = "",
