@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 
 fun Modifier.innerShadow(
     shape: Shape,
-    color: Color = Color.Black,
+    color: Color = Color.Black.copy(0.05f),
     blur: Dp = 4.dp,
     offsetY: Dp = 2.dp,
-    offsetX: Dp = 2.dp,
+    offsetX: Dp = 0.dp,
     spread: Dp = 0.dp
 ) = this.drawWithContent {
 
