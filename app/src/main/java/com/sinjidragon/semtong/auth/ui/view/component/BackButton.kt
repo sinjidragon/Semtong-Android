@@ -32,9 +32,9 @@ fun BackButton(
 {
     Row(
         modifier
-            .clickable(onClick = onClick) // 클릭 가능하게 만듦
-            .background(Color.Transparent) // 원하는 배경색 설정
-            .padding(0.dp) // 패딩 제거
+            .clickable(onClick = onClick)
+            .background(Color.Transparent)
+            .padding(0.dp)
             .wrapContentSize()
             .width(76.dp)
             .height(23.dp)
