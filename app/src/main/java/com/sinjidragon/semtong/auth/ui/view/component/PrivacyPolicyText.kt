@@ -15,8 +15,10 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
 
 @Composable
-fun PrivacyPolicyText(){
-    Column{
+fun PrivacyPolicyText(modifier: Modifier){
+    Column(
+        modifier = modifier
+    ){
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
@@ -71,5 +73,5 @@ fun PrivacyPolicyText(){
 )
 @Composable
 fun PrivacyPolicyTextPreview(){
-    PrivacyPolicyText()
+    PrivacyPolicyText(modifier = Modifier)
 }
