@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,20 +30,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.checkUsername
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
+import com.sinjidragon.semtong.ui.theme.darkGreen
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignupScreen1 (navController : NavController){
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
+    var resultText by remember { mutableStateOf("") }
+    var resultTextColor by remember { mutableStateOf(Color.Green) }
+    val coroutineScope = rememberCoroutineScope()
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -119,7 +126,19 @@ fun SignupScreen1 (navController : NavController){
                     placeholder = "아이디를 입력해주세요",
                     isButton = true,
                     buttonText = "확인",
-                    onClick = { TODO() }
+                    onClick = {
+                        coroutineScope.launch {
+                            val response = checkUsername(idText)
+                            if (response != null){
+                                resultText = "사용 가능한 아이디입니다."
+                                resultTextColor = darkGreen
+                            }
+                            else {
+                                resultText = "이미 존재하는 아이디입니다."
+                                resultTextColor = Color.Red
+                            }
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(22.dp))
                 Text(
@@ -139,6 +158,13 @@ fun SignupScreen1 (navController : NavController){
                     icon = R.drawable.password_icon,
                     isPassword = true,
                     isButton = true
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
+                    text = resultText,
+                    color = resultTextColor
                 )
             }
         }
