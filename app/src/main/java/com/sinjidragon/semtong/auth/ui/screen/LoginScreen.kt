@@ -1,5 +1,6 @@
 package com.sinjidragon.semtong.auth.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.login
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.nav.NavGroup
@@ -37,11 +40,14 @@ import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen (navController : NavController){
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -148,7 +154,13 @@ fun LoginScreen (navController : NavController){
                 color = mainColor,
                 text = "다음",
                 modifier = Modifier,
-                onClick = { TODO()}
+                onClick = {coroutineScope.launch {
+                    val response = login(context = context, username = idText, password = passwordText)
+                    if (response != null) {
+                        Log.d("Login", "Login Success")
+                    }
+                }
+                }
             )
         }
     }
