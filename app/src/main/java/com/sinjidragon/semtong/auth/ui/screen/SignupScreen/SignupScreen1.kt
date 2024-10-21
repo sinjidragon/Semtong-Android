@@ -121,7 +121,12 @@ fun SignupScreen1 (navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { idText = it },
+                    onTextChange = {
+                        idText = it
+                        resultText = ""
+                        resultTextColor = Color.Green
+                        isIdChecked = false
+                                   },
                     text = idText,
                     icon = R.drawable.id_icon,
                     placeholder = "아이디를 입력해주세요",
@@ -130,14 +135,20 @@ fun SignupScreen1 (navController : NavController){
                     onClick = {
                         coroutineScope.launch {
                             val response = checkUsername(idText)
-                            if (response != null){
+                            if (response == "success"){
                                 resultText = "사용 가능한 아이디입니다."
                                 resultTextColor = darkGreen
                                 isIdChecked = true
                             }
                             else {
-                                resultText = "이미 존재하는 아이디입니다."
-                                resultTextColor = Color.Red
+                                if(response == "invalid username format") {
+                                    resultText = "이미 존재하는 아이디입니다."
+                                    resultTextColor = Color.Red
+                                }
+                                else{
+                                    resultText = "잠시 뒤 다시 시도해주세요."
+                                    resultTextColor = Color.Red
+                                }
                             }
                         }
                     }
@@ -154,7 +165,10 @@ fun SignupScreen1 (navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { passwordText = it },
+                    onTextChange = {
+                        passwordText = it
+                        resultText = ""
+                                   },
                     text = passwordText,
                     placeholder = "비밀번호를 입력해주세요",
                     icon = R.drawable.password_icon,
