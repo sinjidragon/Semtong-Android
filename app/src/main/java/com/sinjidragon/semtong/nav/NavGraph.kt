@@ -23,8 +23,10 @@ fun NavGraph(navController: NavHostController) {
         composable(route = NavGroup.SIGNUP1) {
             SignupScreen1(navController = navController)
         }
-        composable(route = NavGroup.SIGNUP2) {
-            SignupScreen2(navController = navController)
+        composable(route = NavGroup.SIGNUP2+"/{idText}/{passwordText}") { backStackEntry ->
+            val idText = backStackEntry.arguments?.getString("idText") ?: ""
+            val passwordText = backStackEntry.arguments?.getString("passwordText") ?: ""
+            SignupScreen2(navController = navController,idText = idText, passwordText = passwordText)
         }
     }
 

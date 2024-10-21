@@ -1,5 +1,6 @@
 package com.sinjidragon.semtong.auth.ui.screen.SignupScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,9 +42,10 @@ import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
-fun SignupScreen2(navController : NavController){
+fun SignupScreen2(navController : NavController, idText : String, passwordText : String){
     var emailText by remember { mutableStateOf("") }
     var code by remember { mutableStateOf(List(6) { "" }) }
+    Log.d("SignupScreen2", "idText: $idText, passwordText: $passwordText")
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -167,5 +169,5 @@ fun SignupScreen2(navController : NavController){
 )
 @Composable
 fun SignupScreen2Preview(){
-    SignupScreen2(navController = NavController(context = LocalContext.current))
+    SignupScreen2(navController = NavController(context = LocalContext.current), idText = "hello", passwordText = "world")
 }

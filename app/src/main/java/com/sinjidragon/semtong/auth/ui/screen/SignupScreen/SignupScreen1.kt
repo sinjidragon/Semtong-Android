@@ -50,7 +50,7 @@ fun SignupScreen1 (navController : NavController){
     var resultText by remember { mutableStateOf("") }
     var resultTextColor by remember { mutableStateOf(Color.Green) }
     val coroutineScope = rememberCoroutineScope()
-    val isIdChecked by remember { mutableStateOf(false) }
+    var isIdChecked by remember { mutableStateOf(false) }
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -133,6 +133,7 @@ fun SignupScreen1 (navController : NavController){
                             if (response != null){
                                 resultText = "사용 가능한 아이디입니다."
                                 resultTextColor = darkGreen
+                                isIdChecked = true
                             }
                             else {
                                 resultText = "이미 존재하는 아이디입니다."
@@ -155,7 +156,7 @@ fun SignupScreen1 (navController : NavController){
                 BaseTextField(
                     onTextChange = { passwordText = it },
                     text = passwordText,
-                    placeholder = "비밀번호를 입해주세요",
+                    placeholder = "비밀번호를 입력해주세요",
                     icon = R.drawable.password_icon,
                     isPassword = true,
                     isButton = true
@@ -186,7 +187,7 @@ fun SignupScreen1 (navController : NavController){
                 onClick = {
                     if (isIdChecked){
                         if (passwordText.length >= 8){
-                            navController.navigate(NavGroup.SIGNUP2)
+                            navController.navigate("${NavGroup.SIGNUP2}/$idText/$passwordText")
                         }
                         else {
                             resultText = "비밀번호를 8자 이상 입력해주세요"
