@@ -113,7 +113,7 @@ fun SignupScreen1 (){
                     onTextChange = { idText = it },
                     text = idText,
                     icon = R.drawable.id_icon,
-                    placeholder = "아이디를 입해주세요",
+                    placeholder = "아이디를 입력해주세요",
                     isButton = true,
                     buttonText = "확인",
                     onClick = { TODO() }
