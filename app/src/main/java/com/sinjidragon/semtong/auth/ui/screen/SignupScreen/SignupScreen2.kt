@@ -56,7 +56,7 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .offset(x = 16.dp),
-            onClick = { /*TODO*/ },
+            onClick = {navController.navigate(NavGroup.SIGNUP1)},
             color = Color.White
         )
         Column(
