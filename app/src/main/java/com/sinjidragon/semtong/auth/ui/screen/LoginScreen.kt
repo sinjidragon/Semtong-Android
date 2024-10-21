@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
-import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
