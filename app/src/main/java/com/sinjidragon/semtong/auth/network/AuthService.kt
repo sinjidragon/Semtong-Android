@@ -12,4 +12,6 @@ interface AuthService {
     suspend fun login(@Body request: LoginRequestBody): LoginResponseBody
     @GET("auth/checkusername")
     suspend fun checkUsername(@Query("username") username: String)
+    @POST("auth/sendmail")
+    suspend fun sendMail(@Query("email") email: String)
 }

@@ -5,15 +5,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-suspend fun checkUsername(username: String): String {
+suspend fun sendMail(email: String): String {
     return withContext(Dispatchers.IO) {
         try {
             val authService = RetrofitClient.authPostService
-            authService.checkUsername(username)
+            authService.sendMail(email)
             "success"
         } catch (e: HttpException) {
             if (e.code() == 400) {
-                "invalid username format"
+                "invalid email format"
             } else {
                 e.printStackTrace()
                 "Unknown error"
@@ -24,4 +24,3 @@ suspend fun checkUsername(username: String): String {
         }
     }
 }
-
