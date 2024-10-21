@@ -18,18 +18,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
-fun IntroScreen() {
+fun IntroScreen(navController : NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(mainColor)
@@ -109,5 +111,5 @@ fun IntroScreen() {
 @Preview
 @Composable
 fun IntroScreenPreview() {
-    IntroScreen()
+    IntroScreen(navController = NavController(context = LocalContext.current))
 }

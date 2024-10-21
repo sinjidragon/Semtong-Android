@@ -22,10 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
@@ -37,7 +39,7 @@ import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
-fun SignupScreen1 (){
+fun SignupScreen1 (navController : NavController){
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     Box (
@@ -164,5 +166,5 @@ fun SignupScreen1 (){
 )
 @Composable
 fun SignupScreen1Preview(){
-    SignupScreen1()
+    SignupScreen1(navController = NavController(context = LocalContext.current))
 }
