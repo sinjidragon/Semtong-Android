@@ -42,7 +42,7 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
 fun SignupScreen2(navController : NavController){
-    var idText by remember { mutableStateOf("") }
+    var emailText by remember { mutableStateOf("") }
     var code by remember { mutableStateOf(List(6) { "" }) }
     Box (
         modifier = Modifier
@@ -114,8 +114,8 @@ fun SignupScreen2(navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { idText = it },
-                    text = idText,
+                    onTextChange = { emailText = it },
+                    text = emailText,
                     icon = R.drawable.email_icon,
                     placeholder = "이메일을 입력해주세요",
                     isButton = true,
