@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
+import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
@@ -96,14 +97,14 @@ fun IntroScreen(navController : NavController) {
                 modifier = Modifier,
                 color = mainColor,
                 text = "로그인",
-                onClick = {TODO()}
+                onClick = {navController.navigate(NavGroup.LOGIN)}
             )
             Spacer(modifier = Modifier.height(20.dp))
             AuthBaseButton(
                 modifier = Modifier,
                 color = Color.White,
                 text = "회원가입",
-                onClick = {TODO()}
+                onClick = {navController.navigate(NavGroup.SIGNUP1)}
             )
         }
     }

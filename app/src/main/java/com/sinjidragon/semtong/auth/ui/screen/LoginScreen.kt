@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
+import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
@@ -51,7 +52,7 @@ fun LoginScreen (navController : NavController){
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .offset(x = 16.dp),
-            onClick = { /*TODO*/ },
+            onClick = {navController.navigate(NavGroup.INTRO)},
             color = Color.White
         )
         Column(
@@ -146,7 +147,8 @@ fun LoginScreen (navController : NavController){
             AuthBaseButton(
                 color = mainColor,
                 text = "다음",
-                modifier = Modifier
+                modifier = Modifier,
+                onClick = { TODO()}
             )
         }
     }

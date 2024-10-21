@@ -33,6 +33,7 @@ import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.auth.ui.view.component.VerificationNumberTextField
+import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
@@ -153,7 +154,8 @@ fun SignupScreen2(navController : NavController){
             AuthBaseButton(
                 color = mainColor,
                 text = "다음",
-                modifier = Modifier
+                modifier = Modifier,
+                onClick = {TODO()}
             )
         }
     }
