@@ -38,7 +38,7 @@ import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
-fun SignupScreen1 (navController : NavController){
+fun LoginScreen (navController : NavController){
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     Box (
@@ -158,5 +158,5 @@ fun SignupScreen1 (navController : NavController){
 )
 @Composable
 fun SignupScreen1Preview(){
-    SignupScreen1(navController = NavController(context = LocalContext.current))
+    LoginScreen(navController = NavController(context = LocalContext.current))
 }
