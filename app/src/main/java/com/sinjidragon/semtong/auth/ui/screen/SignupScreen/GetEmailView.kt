@@ -1,6 +1,5 @@
 package com.sinjidragon.semtong.auth.ui.screen.SignupScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,11 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.network.api.sendMail
+import com.sinjidragon.semtong.auth.network.api.signup
 import com.sinjidragon.semtong.auth.network.api.verify
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
+import com.sinjidragon.semtong.auth.ui.view.component.CodeTextField
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
-import com.sinjidragon.semtong.auth.ui.view.component.VerificationNumberTextField
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.errorTextColor
@@ -170,7 +170,7 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                     color = gray2
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                VerificationNumberTextField(
+                CodeTextField(
                     code = code,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally),
@@ -200,11 +200,18 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                     if (isVerifySend){
                     val codeString = code.joinToString("")
                     coroutineScope.launch {
-                        val response = verify(email = emailText, code = codeString)
-                        if (response == "success") {
-                            TODO()
+                        val verifyResponse = verify(email = emailText, code = codeString)
+                        if (verifyResponse == "success") {
+                            val signupResponse = signup(username = idText, password = passwordText, email = emailText)
+                            if (signupResponse == "success") {
+                                TODO()
+                            }
+                            else {
+                                resultText = " $signupResponse"
+                                resultTextColor = errorTextColor
+                            }
                         } else {
-                            resultText = "● $response"
+                            resultText = "• $verifyResponse"
                             resultTextColor = errorTextColor
                             }
                         }

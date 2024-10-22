@@ -3,6 +3,7 @@ package com.sinjidragon.semtong.auth.network
 import com.sinjidragon.semtong.auth.network.data.LoginRequestBody
 import com.sinjidragon.semtong.auth.network.data.LoginResponseBody
 import com.sinjidragon.semtong.auth.network.data.RefreshRequestBody
+import com.sinjidragon.semtong.auth.network.data.SignupRequestBody
 import com.sinjidragon.semtong.auth.network.data.VerifyRequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -20,5 +21,7 @@ interface AuthService {
     suspend fun verify(@Body request: VerifyRequestBody)
     @POST("/auth/refresh")
     suspend fun refresh(@Body request: RefreshRequestBody): LoginResponseBody
+    @POST("/auth/signup")
+    suspend fun signup(@Body request: SignupRequestBody)
 
 }
