@@ -36,7 +36,7 @@ import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
-import com.sinjidragon.semtong.ui.theme.darkGreen
+import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
@@ -124,7 +124,7 @@ fun SignupScreen1 (navController : NavController){
                     onTextChange = {
                         idText = it
                         resultText = ""
-                        resultTextColor = Color.Green
+                        resultTextColor = gray2
                         isIdChecked = false
                                    },
                     text = idText,
@@ -136,24 +136,29 @@ fun SignupScreen1 (navController : NavController){
                         coroutineScope.launch {
                             val response = checkUsername(idText)
                             if (response == "success"){
-                                resultText = "사용 가능한 아이디입니다."
-                                resultTextColor = darkGreen
+                                resultText = "• 사용 가능한 아이디입니다."
+                                resultTextColor = gray2
                                 isIdChecked = true
                             }
                             else {
-                                if(response == "invalid username format") {
-                                    resultText = "이미 존재하는 아이디입니다."
-                                    resultTextColor = Color.Red
-                                }
-                                else{
-                                    resultText = "잠시 뒤 다시 시도해주세요."
-                                    resultTextColor = Color.Red
-                                }
+                                resultText = "• $response"
+                                resultTextColor = errorTextColor
+                                isIdChecked = false
                             }
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(22.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    modifier = Modifier
+                        .padding(start = 40.dp),
+                    text = resultText,
+                    color = resultTextColor,
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 10.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
@@ -174,13 +179,6 @@ fun SignupScreen1 (navController : NavController){
                     icon = R.drawable.password_icon,
                     isPassword = true,
                     isButton = true
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally),
-                    text = resultText,
-                    color = resultTextColor
                 )
             }
         }
@@ -204,13 +202,13 @@ fun SignupScreen1 (navController : NavController){
                             navController.navigate("${NavGroup.SIGNUP2}/$idText/$passwordText")
                         }
                         else {
-                            resultText = "비밀번호를 8자 이상 입력해주세요"
-                            resultTextColor = Color.Red
+                            resultText = "• 비밀번호를 8자 이상 입력해주세요"
+                            resultTextColor = errorTextColor
                         }
                     }
                     else {
-                        resultText = "아이디 중복을 확인해주세요"
-                        resultTextColor = Color.Red
+                        resultText = "• 아이디 중복을 확인해주세요"
+                        resultTextColor = errorTextColor
                     }
                 },
             )
