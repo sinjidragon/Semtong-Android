@@ -36,7 +36,8 @@ fun VerificationNumberTextFieldItem(
     modifier: Modifier = Modifier,
     focusRequester: FocusRequester,
     nextFocusRequester: FocusRequester? = null,
-    previousFocusRequester: FocusRequester? = null
+    previousFocusRequester: FocusRequester? = null,
+    keyboardType: KeyboardType = KeyboardType.Number
 ) {
     Box(
         modifier = modifier
@@ -87,7 +88,8 @@ fun VerificationNumberTextFieldItem(
 fun VerificationNumberTextField(
     code: List<String>,
     onCodeChange: (List<String>) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    keyboardType: KeyboardType = KeyboardType.Number
 ) {
     val focusRequesters = remember { List(6) { FocusRequester() } }
 
@@ -121,7 +123,8 @@ fun VerificationNumberTextField(
                     .weight(1f),
                 focusRequester = focusRequesters[i],
                 nextFocusRequester = if (i < code.size - 1) focusRequesters[i + 1] else null,
-                previousFocusRequester = if (i > 0) focusRequesters[i - 1] else null
+                previousFocusRequester = if (i > 0) focusRequesters[i - 1] else null,
+                keyboardType = keyboardType
             )
         }
     }
