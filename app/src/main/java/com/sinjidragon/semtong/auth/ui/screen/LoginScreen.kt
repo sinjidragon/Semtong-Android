@@ -48,6 +48,8 @@ fun LoginScreen (navController : NavController){
     var passwordText by remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    var resultText by remember { mutableStateOf("") }
+    var resultTextColor by remember { mutableStateOf(gray2) }
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -118,12 +120,23 @@ fun LoginScreen (navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { idText = it },
+                    onTextChange = {
+                        resultText = ""
+                        idText = it
+                                   },
                     text = idText,
                     icon = R.drawable.id_icon,
                     placeholder = "아이디를 입력해주세요"
                 )
-                Spacer(modifier = Modifier.height(22.dp))
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = resultText,
+                    fontFamily = pretendard,
+                    fontWeight = FontWeight.Medium,
+                    color = resultTextColor,
+                    fontSize = 10.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
@@ -135,7 +148,10 @@ fun LoginScreen (navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { passwordText = it },
+                    onTextChange = {
+                        resultText = ""
+                        passwordText = it
+                                   },
                     text = passwordText,
                     placeholder = "비밀번호를 입해주세요",
                     icon = R.drawable.password_icon,
@@ -156,10 +172,15 @@ fun LoginScreen (navController : NavController){
                 modifier = Modifier,
                 onClick = {coroutineScope.launch {
                     val response = login(context = context, username = idText, password = passwordText)
-                    if (response != null) {
+                    if (response == "success") {
                         Log.d("Login", "Login Success")
                     }
-                }
+                    else {
+                        resultText = "• $response"
+                        resultTextColor = com.sinjidragon.semtong.ui.theme.errorTextColor
+
+                        }
+                    }
                 }
             )
         }
