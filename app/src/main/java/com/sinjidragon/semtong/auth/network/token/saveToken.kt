@@ -7,6 +7,7 @@ import kotlinx.coroutines.runBlocking
 
 val REF_TOKEN = stringPreferencesKey("auth_token")
 val ACC_TOKEN = stringPreferencesKey("auth_token")
+val ROLES = stringPreferencesKey("roles")
 
 fun saveRefToken(context: Context, token: String) {
     runBlocking {
@@ -19,6 +20,13 @@ fun saveAccToken(context: Context, token: String) {
     runBlocking {
         context.dataStore.edit { preferences ->
             preferences[ACC_TOKEN] = token
+        }
+    }
+}
+fun saveRole(context: Context, token: String) {
+    runBlocking {
+        context.dataStore.edit { preferences ->
+            preferences[ROLES] = token
         }
     }
 }
