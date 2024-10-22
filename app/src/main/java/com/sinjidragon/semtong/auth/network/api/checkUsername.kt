@@ -1,6 +1,9 @@
 package com.sinjidragon.semtong.auth.network.api
 
+import android.util.Log
 import com.sinjidragon.semtong.auth.network.RetrofitClient
+import com.sinjidragon.semtong.auth.network.data.VerifyRequestBody
+import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -12,16 +15,12 @@ suspend fun checkUsername(username: String): String {
             authService.checkUsername(username)
             "success"
         } catch (e: HttpException) {
-            if (e.code() == 400) {
-                "invalid username format"
-            } else {
-                e.printStackTrace()
-                "Unknown error"
-            }
+            val errorResponse = e.response()?.errorBody()?.string()?.let { parseErrorResponse(it) }
+            Log.d("checkUsername", errorResponse?.error ?: "다시 시도해주세요.")
+            errorResponse?.error ?: "다시 시도해주세요."
         } catch (e: Exception) {
             e.printStackTrace()
-            "Connect error"
+            "서버 연결 에러입니다."
         }
     }
 }
-

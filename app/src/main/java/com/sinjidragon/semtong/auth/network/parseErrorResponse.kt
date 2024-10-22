@@ -8,6 +8,6 @@ fun parseErrorResponse(errorBody: String): ErrorResponse {
         Gson().fromJson(errorBody, ErrorResponse::class.java)
     } catch (e: Exception) {
         e.printStackTrace()
-        ErrorResponse("Parse error", "Unknown error")
+        ErrorResponse("파싱 오류", "다시 시도해주세요.")
     }
 }
