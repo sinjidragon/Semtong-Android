@@ -30,7 +30,7 @@ import com.sinjidragon.semtong.ui.theme.gray
 import com.sinjidragon.semtong.ui.theme.gray2
 
 @Composable
-fun VerificationNumberTextFieldItem(
+fun CodeTextFieldItem(
     text: String,
     onTextChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -77,7 +77,7 @@ fun VerificationNumberTextFieldItem(
                 textAlign = TextAlign.Center
             ),
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
+                keyboardType = keyboardType
             ),
             singleLine = true
         )
@@ -85,7 +85,7 @@ fun VerificationNumberTextFieldItem(
 }
 
 @Composable
-fun VerificationNumberTextField(
+fun CodeTextField(
     code: List<String>,
     onCodeChange: (List<String>) -> Unit,
     modifier: Modifier = Modifier,
@@ -100,7 +100,7 @@ fun VerificationNumberTextField(
         horizontalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         for (i in code.indices) {
-            VerificationNumberTextFieldItem(
+            CodeTextFieldItem(
                 text = code[i],
                 onTextChange = { input ->
                     val newCode = code.toMutableList()
@@ -139,9 +139,9 @@ fun VerificationNumberTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun VerificationNumberTextFieldPreview() {
+fun CodeTextFieldPreview() {
     var code by remember { mutableStateOf(List(6) { "" }) }
-    VerificationNumberTextField(
+    CodeTextField(
         code = code,
         onCodeChange = { newCode -> code = newCode },
         modifier = Modifier
