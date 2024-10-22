@@ -42,7 +42,7 @@ fun CodeTextFieldItem(
     Box(
         modifier = modifier
             .width(45.dp)
-            .height(55.dp)
+            .height(60.dp)
             .border(
                 width = 1.dp,
                 color = Color(0xFFEDEDED),
