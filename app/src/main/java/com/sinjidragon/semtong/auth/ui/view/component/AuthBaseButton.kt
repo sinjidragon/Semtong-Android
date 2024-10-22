@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,7 +41,7 @@ fun AuthBaseButton(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.06f)
+            .height(50.dp)
             .padding(horizontal = 40.dp)
             .dropShadow(shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
