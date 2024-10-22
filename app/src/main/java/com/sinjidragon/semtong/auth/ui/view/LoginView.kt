@@ -1,5 +1,6 @@
-package com.sinjidragon.semtong.auth.ui.screen.SignupScreen
+package com.sinjidragon.semtong.auth.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,10 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
-import com.sinjidragon.semtong.auth.network.api.checkUsername
-import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
-import com.sinjidragon.semtong.auth.ui.view.component.BackButton
-import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
+import com.sinjidragon.semtong.auth.network.api.login
+import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
+import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.errorTextColor
@@ -44,13 +44,14 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import kotlinx.coroutines.launch
 
 @Composable
-fun GetIdPasswordView (navController : NavController){
+fun LoginView (navController : NavController){
+    val context = LocalContext.current
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
-    var resultText by remember { mutableStateOf("") }
-    var resultTextColor by remember { mutableStateOf(Color.Green) }
     val coroutineScope = rememberCoroutineScope()
-    var isIdChecked by remember { mutableStateOf(false) }
+    var resultText by remember { mutableStateOf("") }
+    var resultTextColor by remember { mutableStateOf(gray2) }
+
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +69,7 @@ fun GetIdPasswordView (navController : NavController){
             modifier = Modifier.align(Alignment.TopCenter)
         ) {
             Text(
-                text = "회원가입",
+                text = "로그인",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 fontSize = 16.sp,
@@ -78,7 +79,7 @@ fun GetIdPasswordView (navController : NavController){
             )
             Spacer(modifier = Modifier.height(60.dp))
             Text(
-                text = "Sign Up",
+                text = "Login",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 fontSize = 30.sp,
@@ -122,39 +123,19 @@ fun GetIdPasswordView (navController : NavController){
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
                     onTextChange = {
-                        idText = it
                         resultText = ""
-                        isIdChecked = false
+                        idText = it
                                    },
                     text = idText,
                     icon = R.drawable.id_icon,
-                    placeholder = "아이디를 입력해주세요",
-                    isButton = true,
-                    buttonText = "확인",
-                    onClick = {
-                        coroutineScope.launch {
-                            val response = checkUsername(idText)
-                            if (response == "success"){
-                                resultText = "• 사용 가능한 아이디입니다."
-                                resultTextColor = gray2
-                                isIdChecked = true
-                            }
-                            else {
-                                resultText = "• $response"
-                                resultTextColor = errorTextColor
-                                isIdChecked = false
-                            }
-                        }
-                    }
+                    placeholder = "아이디를 입력해주세요"
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    modifier = Modifier
-                        .padding(start = 40.dp),
                     text = resultText,
-                    color = resultTextColor,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
+                    color = resultTextColor,
                     fontSize = 10.sp
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -170,11 +151,11 @@ fun GetIdPasswordView (navController : NavController){
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
                     onTextChange = {
-                        passwordText = it
                         resultText = ""
+                        passwordText = it
                                    },
                     text = passwordText,
-                    placeholder = "비밀번호를 입력해주세요",
+                    placeholder = "비밀번호를 입해주세요",
                     icon = R.drawable.password_icon,
                     isPassword = true,
                     isButton = true
@@ -187,29 +168,21 @@ fun GetIdPasswordView (navController : NavController){
                 .offset(y = (-65).dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            PrivacyPolicyText(
-                modifier = Modifier
-            )
-            Spacer(modifier = Modifier.height(9.dp))
             AuthBaseButton(
                 color = mainColor,
                 text = "다음",
                 modifier = Modifier,
-                onClick = {
-                    if (isIdChecked){
-                        if (passwordText.length >= 8){
-                            navController.navigate("${NavGroup.SIGNUP_EMAIL}/$idText/$passwordText")
-                        }
-                        else {
-                            resultText = "• 비밀번호를 8자 이상 입력해주세요"
-                            resultTextColor = errorTextColor
-                        }
+                onClick = {coroutineScope.launch {
+                    val response = login(context = context, username = idText, password = passwordText)
+                    if (response == "success") {
+                        Log.d("Login", "Login Success")
                     }
                     else {
-                        resultText = "• 아이디 중복을 확인해주세요"
+                        resultText = "• $response"
                         resultTextColor = errorTextColor
+                        }
                     }
-                },
+                }
             )
         }
     }
@@ -220,6 +193,6 @@ fun GetIdPasswordView (navController : NavController){
     showSystemUi = true
 )
 @Composable
-fun GetIdPasswordViewPreview(){
-    GetIdPasswordView(navController = NavController(context = LocalContext.current))
+fun LoginViewPreview(){
+    LoginView(navController = NavController(context = LocalContext.current))
 }

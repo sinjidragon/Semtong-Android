@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.ui.screen
+package com.sinjidragon.semtong.auth.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
-import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
+import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard

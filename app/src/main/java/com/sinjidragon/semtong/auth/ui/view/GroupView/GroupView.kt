@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.ui.screen.GroupScreen
+package com.sinjidragon.semtong.auth.ui.view.GroupView
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,10 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
-import com.sinjidragon.semtong.auth.ui.view.component.BackButton
-import com.sinjidragon.semtong.auth.ui.view.component.CodeTextField
-import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
+import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
+import com.sinjidragon.semtong.auth.ui.component.BackButton
+import com.sinjidragon.semtong.auth.ui.component.CodeTextField
+import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.pretendard

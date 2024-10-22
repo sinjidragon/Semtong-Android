@@ -1,6 +1,5 @@
-package com.sinjidragon.semtong.auth.ui.screen
+package com.sinjidragon.semtong.auth.ui.view.SignupView
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,11 +30,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
-import com.sinjidragon.semtong.auth.network.api.login
-import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
-import com.sinjidragon.semtong.auth.ui.view.component.BackButton
+import com.sinjidragon.semtong.auth.network.api.sendMail
+import com.sinjidragon.semtong.auth.network.api.signup
+import com.sinjidragon.semtong.auth.network.api.verify
+import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
+import com.sinjidragon.semtong.auth.ui.component.BackButton
+import com.sinjidragon.semtong.auth.ui.component.CodeTextField
+import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
+import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
@@ -43,13 +47,13 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginView (navController : NavController){
-    val context = LocalContext.current
-    var idText by remember { mutableStateOf("") }
-    var passwordText by remember { mutableStateOf("") }
+fun GetEmailView(navController : NavController, idText : String, passwordText : String){
+    var emailText by remember { mutableStateOf("") }
+    var code by remember { mutableStateOf(List(6) { "" }) }
     val coroutineScope = rememberCoroutineScope()
     var resultText by remember { mutableStateOf("") }
     var resultTextColor by remember { mutableStateOf(gray2) }
+    var isVerifySend by remember { mutableStateOf(false) }
 
     Box (
         modifier = Modifier
@@ -61,14 +65,14 @@ fun LoginView (navController : NavController){
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .offset(x = 16.dp),
-            onClick = {navController.navigate(NavGroup.FIRST)},
+            onClick = {navController.navigate(NavGroup.SIGNUP_ID_PASSWORD)},
             color = Color.White
         )
         Column(
             modifier = Modifier.align(Alignment.TopCenter)
         ) {
             Text(
-                text = "로그인",
+                text = "회원가입",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 fontSize = 16.sp,
@@ -78,7 +82,7 @@ fun LoginView (navController : NavController){
             )
             Spacer(modifier = Modifier.height(60.dp))
             Text(
-                text = "Login",
+                text = "Sign Up",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 fontSize = 30.sp,
@@ -113,51 +117,68 @@ fun LoginView (navController : NavController){
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
-                    text = "아이디",
+                    text = "이메일",
                     fontSize = 14.sp,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
-                    color = gray2
+                    color = resultTextColor
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
                     onTextChange = {
+                        emailText = it
                         resultText = ""
-                        idText = it
                                    },
-                    text = idText,
-                    icon = R.drawable.id_icon,
-                    placeholder = "아이디를 입력해주세요"
+                    text = emailText,
+                    icon = R.drawable.email_icon,
+                    placeholder = "이메일을 입력해주세요",
+                    isButton = true,
+                    buttonText = "인증",
+                    onClick = {
+                        coroutineScope.launch {
+                            val response = sendMail(emailText)
+                            if (response == "success"){
+                                resultText = "• 인증번호가 전송되었습니다."
+                                resultTextColor = gray2
+                                isVerifySend = true
+                            }
+                            else {
+                                resultText = "• $response"
+                                resultTextColor = errorTextColor
+                            }
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
+                    modifier = Modifier
+                        .padding(start = 40.dp),
                     text = resultText,
-                    fontFamily = pretendard,
+                    fontFamily = pretendard,//●
                     fontWeight = FontWeight.Medium,
-                    color = resultTextColor,
+                    color = errorTextColor,
                     fontSize = 10.sp
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(22.dp))
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
-                    text = "비밀번호",
+                    text = "인증번호",
                     fontSize = 14.sp,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
                     color = gray2
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                BaseTextField(
-                    onTextChange = {
+                CodeTextField(
+                    code = code,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally),
+                    onCodeChange = {
+                        code = it
                         resultText = ""
-                        passwordText = it
-                                   },
-                    text = passwordText,
-                    placeholder = "비밀번호를 입해주세요",
-                    icon = R.drawable.password_icon,
-                    isPassword = true,
-                    isButton = true
+                        isVerifySend = false
+                    }
                 )
             }
         }
@@ -167,19 +188,37 @@ fun LoginView (navController : NavController){
                 .offset(y = (-65).dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
+            PrivacyPolicyText(
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.height(9.dp))
             AuthBaseButton(
                 color = mainColor,
                 text = "다음",
                 modifier = Modifier,
-                onClick = {coroutineScope.launch {
-                    val response = login(context = context, username = idText, password = passwordText)
-                    if (response == "success") {
-                        Log.d("Login", "Login Success")
+                onClick = {
+                    if (isVerifySend){
+                    val codeString = code.joinToString("")
+                    coroutineScope.launch {
+                        val verifyResponse = verify(email = emailText, code = codeString)
+                        if (verifyResponse == "success") {
+                            val signupResponse = signup(username = idText, password = passwordText, email = emailText)
+                            if (signupResponse == "success") {
+                                TODO()
+                            }
+                            else {
+                                resultText = " $signupResponse"
+                                resultTextColor = errorTextColor
+                            }
+                        } else {
+                            resultText = "• $verifyResponse"
+                            resultTextColor = errorTextColor
+                            }
+                        }
                     }
                     else {
-                        resultText = "• $response"
-                        resultTextColor = com.sinjidragon.semtong.ui.theme.errorTextColor
-                        }
+                        resultText = "• 인증번호를 발송해주세요."
+                        resultTextColor = errorTextColor
                     }
                 }
             )
@@ -192,6 +231,6 @@ fun LoginView (navController : NavController){
     showSystemUi = true
 )
 @Composable
-fun LoginViewPreview(){
-    LoginView(navController = NavController(context = LocalContext.current))
+fun GetEmailViewPreview(){
+    GetEmailView(navController = NavController(context = LocalContext.current), idText = "hello", passwordText = "world")
 }

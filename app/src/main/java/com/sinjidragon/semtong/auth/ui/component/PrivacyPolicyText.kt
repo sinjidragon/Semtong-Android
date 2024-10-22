@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.ui.view.component
+package com.sinjidragon.semtong.auth.ui.component
 
 import android.content.Intent
 import android.net.Uri
