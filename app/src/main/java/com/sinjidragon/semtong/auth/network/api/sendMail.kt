@@ -10,7 +10,7 @@ import retrofit2.HttpException
 suspend fun sendMail(email: String): String {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             authService.sendMail(email)
             "success"
         } catch (e: HttpException) {

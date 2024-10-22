@@ -11,7 +11,7 @@ import retrofit2.HttpException
 suspend fun signup(username: String, password: String, email:String): String {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             val signupRequest = SignupRequestBody(username, password, email)
             val response = authService.signup(signupRequest)
             "success"

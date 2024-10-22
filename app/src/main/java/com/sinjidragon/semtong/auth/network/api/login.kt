@@ -15,7 +15,7 @@ import retrofit2.HttpException
 suspend fun login(context: Context, username: String, password: String): String {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             val loginRequest = LoginRequestBody(username, password)
             val response = authService.login(loginRequest)
             saveAccToken(context, response.accessToken)

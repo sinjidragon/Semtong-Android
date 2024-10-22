@@ -19,7 +19,7 @@ suspend fun refresh (){
 suspend fun refresh(context: Context, refreshToken: String): String? {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             val refreshRequest = RefreshRequestBody(refreshToken)
             val response = authService.refresh(refreshRequest)
             saveAccToken(context, response.accessToken)

@@ -11,7 +11,7 @@ import retrofit2.HttpException
 suspend fun verify(email: String, code: String): String {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             val verifyRequest = VerifyRequestBody(email, code)
             authService.verify(verifyRequest)
             "success"
