@@ -11,7 +11,7 @@ import retrofit2.HttpException
 suspend fun checkUsername(username: String): String {
     return withContext(Dispatchers.IO) {
         try {
-            val authService = RetrofitClient.authPostService
+            val authService = RetrofitClient.authService
             authService.checkUsername(username)
             "success"
         } catch (e: HttpException) {
