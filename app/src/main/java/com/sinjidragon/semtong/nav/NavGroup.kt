@@ -1,8 +1,8 @@
 package com.sinjidragon.semtong.nav
 
 object NavGroup {
-    const val INTRO = "intro"
+    const val FIRST = "first"
     const val LOGIN = "login"
-    const val SIGNUP1 = "signup1"
-    const val SIGNUP2 = "signup2"
+    const val SIGNUP_ID_PASSWORD = "signup_id_password"
+    const val SIGNUP_EMAIL = "signup_email"
 }

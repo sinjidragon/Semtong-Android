@@ -4,29 +4,29 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sinjidragon.semtong.auth.ui.screen.IntroScreen
-import com.sinjidragon.semtong.auth.ui.screen.LoginScreen
-import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.SignupScreen1
-import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.SignupScreen2
+import com.sinjidragon.semtong.auth.ui.screen.FirstView
+import com.sinjidragon.semtong.auth.ui.screen.LoginView
+import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.GetEmailView
+import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.GetIdPasswordView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
-    val startDestination = NavGroup.INTRO
+    val startDestination = NavGroup.FIRST
 
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(route = NavGroup.INTRO) {
-            IntroScreen(navController = navController)
+        composable(route = NavGroup.FIRST) {
+            FirstView(navController = navController)
         }
         composable(route = NavGroup.LOGIN) {
-            LoginScreen(navController = navController)
+            LoginView(navController = navController)
         }
-        composable(route = NavGroup.SIGNUP1) {
-            SignupScreen1(navController = navController)
+        composable(route = NavGroup.SIGNUP_ID_PASSWORD) {
+            GetIdPasswordView(navController = navController)
         }
-        composable(route = NavGroup.SIGNUP2+"/{idText}/{passwordText}") { backStackEntry ->
+        composable(route = NavGroup.SIGNUP_EMAIL+"/{idText}/{passwordText}") { backStackEntry ->
             val idText = backStackEntry.arguments?.getString("idText") ?: ""
             val passwordText = backStackEntry.arguments?.getString("passwordText") ?: ""
-            SignupScreen2(navController = navController,idText = idText, passwordText = passwordText)
+            GetEmailView(navController = navController,idText = idText, passwordText = passwordText)
         }
     }
 

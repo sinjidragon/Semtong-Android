@@ -1,6 +1,5 @@
 package com.sinjidragon.semtong.auth.ui.screen.SignupScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,12 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
-import com.sinjidragon.semtong.auth.network.api.sendMail
-import com.sinjidragon.semtong.auth.network.api.verify
+import com.sinjidragon.semtong.auth.network.api.checkUsername
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
-import com.sinjidragon.semtong.auth.ui.view.component.VerificationNumberTextField
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.errorTextColor
@@ -47,15 +44,13 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import kotlinx.coroutines.launch
 
 @Composable
-fun SignupScreen2(navController : NavController, idText : String, passwordText : String){
-    var emailText by remember { mutableStateOf("") }
-    var code by remember { mutableStateOf(List(6) { "" }) }
-    val coroutineScope = rememberCoroutineScope()
+fun GetIdPasswordView (navController : NavController){
+    var idText by remember { mutableStateOf("") }
+    var passwordText by remember { mutableStateOf("") }
     var resultText by remember { mutableStateOf("") }
-    var resultTextColor by remember { mutableStateOf(gray2) }
-    var isVerifySend by remember { mutableStateOf(false) }
-
-    Log.d("SignupScreen2", "idText: $idText, passwordText: $passwordText")
+    var resultTextColor by remember { mutableStateOf(Color.Green) }
+    val coroutineScope = rememberCoroutineScope()
+    var isIdChecked by remember { mutableStateOf(false) }
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -66,7 +61,7 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .offset(x = 16.dp),
-            onClick = {navController.navigate(NavGroup.SIGNUP1)},
+            onClick = {navController.navigate(NavGroup.FIRST)},
             color = Color.White
         )
         Column(
@@ -118,34 +113,36 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
-                    text = "이메일",
+                    text = "아이디",
                     fontSize = 14.sp,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
-                    color = resultTextColor
+                    color = gray2
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
                     onTextChange = {
-                        emailText = it
+                        idText = it
                         resultText = ""
+                        isIdChecked = false
                                    },
-                    text = emailText,
-                    icon = R.drawable.email_icon,
-                    placeholder = "이메일을 입력해주세요",
+                    text = idText,
+                    icon = R.drawable.id_icon,
+                    placeholder = "아이디를 입력해주세요",
                     isButton = true,
-                    buttonText = "인증",
+                    buttonText = "확인",
                     onClick = {
                         coroutineScope.launch {
-                            val response = sendMail(emailText)
+                            val response = checkUsername(idText)
                             if (response == "success"){
-                                resultText = "• 인증번호가 전송되었습니다."
+                                resultText = "• 사용 가능한 아이디입니다."
                                 resultTextColor = gray2
-                                isVerifySend = true
+                                isIdChecked = true
                             }
                             else {
                                 resultText = "• $response"
                                 resultTextColor = errorTextColor
+                                isIdChecked = false
                             }
                         }
                     }
@@ -155,31 +152,32 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                     modifier = Modifier
                         .padding(start = 40.dp),
                     text = resultText,
-                    fontFamily = pretendard,//●
+                    color = resultTextColor,
+                    fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
-                    color = errorTextColor,
                     fontSize = 10.sp
                 )
-                Spacer(modifier = Modifier.height(22.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     modifier = Modifier
                         .offset(x = 40.dp),
-                    text = "인증번호",
+                    text = "비밀번호",
                     fontSize = 14.sp,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
                     color = gray2
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                VerificationNumberTextField(
-                    code = code,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally),
-                    onCodeChange = {
-                        code = it
+                BaseTextField(
+                    onTextChange = {
+                        passwordText = it
                         resultText = ""
-                        isVerifySend = false
-                    }
+                                   },
+                    text = passwordText,
+                    placeholder = "비밀번호를 입력해주세요",
+                    icon = R.drawable.password_icon,
+                    isPassword = true,
+                    isButton = true
                 )
             }
         }
@@ -198,23 +196,20 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                 text = "다음",
                 modifier = Modifier,
                 onClick = {
-                    if (isVerifySend){
-                    val codeString = code.joinToString("")
-                    coroutineScope.launch {
-                        val response = verify(email = emailText, code = codeString)
-                        if (response == "success") {
-                            TODO()
-                        } else {
-                            resultText = "● $response"
+                    if (isIdChecked){
+                        if (passwordText.length >= 8){
+                            navController.navigate("${NavGroup.SIGNUP_EMAIL}/$idText/$passwordText")
+                        }
+                        else {
+                            resultText = "• 비밀번호를 8자 이상 입력해주세요"
                             resultTextColor = errorTextColor
-                            }
                         }
                     }
                     else {
-                        resultText = "• 인증번호를 발송해주세요."
+                        resultText = "• 아이디 중복을 확인해주세요"
                         resultTextColor = errorTextColor
                     }
-                }
+                },
             )
         }
     }
@@ -225,6 +220,6 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
     showSystemUi = true
 )
 @Composable
-fun SignupScreen2Preview(){
-    SignupScreen2(navController = NavController(context = LocalContext.current), idText = "hello", passwordText = "world")
+fun GetIdPasswordViewPreview(){
+    GetIdPasswordView(navController = NavController(context = LocalContext.current))
 }

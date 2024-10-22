@@ -32,7 +32,7 @@ import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 
 @Composable
-fun IntroScreen(navController : NavController) {
+fun FirstView(navController : NavController) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(mainColor)
@@ -104,13 +104,13 @@ fun IntroScreen(navController : NavController) {
                 modifier = Modifier,
                 color = Color.White,
                 text = "회원가입",
-                onClick = {navController.navigate(NavGroup.SIGNUP1)}
+                onClick = {navController.navigate(NavGroup.SIGNUP_ID_PASSWORD)}
             )
         }
     }
 }
 @Preview
 @Composable
-fun IntroScreenPreview() {
-    IntroScreen(navController = NavController(context = LocalContext.current))
+fun FirstViewPreview() {
+    FirstView(navController = NavController(context = LocalContext.current))
 }
