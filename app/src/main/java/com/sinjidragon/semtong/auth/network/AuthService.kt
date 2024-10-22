@@ -23,5 +23,4 @@ interface AuthService {
     suspend fun refresh(@Body request: RefreshRequestBody): LoginResponseBody
     @POST("/auth/signup")
     suspend fun signup(@Body request: SignupRequestBody)
-
 }
