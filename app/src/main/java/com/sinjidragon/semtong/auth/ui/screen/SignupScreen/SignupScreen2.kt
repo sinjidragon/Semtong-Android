@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,21 +31,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.sendMail
+import com.sinjidragon.semtong.auth.network.api.verify
 import com.sinjidragon.semtong.auth.ui.view.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.view.component.BackButton
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.auth.ui.view.component.VerificationNumberTextField
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.component.BaseTextField
+import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.innerShadow
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignupScreen2(navController : NavController, idText : String, passwordText : String){
     var emailText by remember { mutableStateOf("") }
     var code by remember { mutableStateOf(List(6) { "" }) }
+    val coroutineScope = rememberCoroutineScope()
+    var resultText by remember { mutableStateOf("") }
+    var resultTextColor by remember { mutableStateOf(gray2) }
+    var isVerifySend by remember { mutableStateOf(false) }
+
     Log.d("SignupScreen2", "idText: $idText, passwordText: $passwordText")
     Box (
         modifier = Modifier
@@ -112,7 +122,7 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                     fontSize = 14.sp,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
-                    color = gray2
+                    color = resultTextColor
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
@@ -122,7 +132,30 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                     placeholder = "이메일을 입력해주세요",
                     isButton = true,
                     buttonText = "인증",
-                    onClick = { TODO() }
+                    onClick = {
+                        coroutineScope.launch {
+                            val response = sendMail(emailText)
+                            if (response == "success"){
+                                resultText = "• 인증번호가 전송되었습니다."
+                                resultTextColor = gray2
+                                isVerifySend = true
+                            }
+                            else {
+                                resultText = "• $response"
+                                resultTextColor = errorTextColor
+                            }
+                        }
+                    }
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    modifier = Modifier
+                        .padding(start = 40.dp),
+                    text = resultText,
+                    fontFamily = pretendard,//●
+                    fontWeight = FontWeight.Medium,
+                    color = errorTextColor,
+                    fontSize = 10.sp
                 )
                 Spacer(modifier = Modifier.height(22.dp))
                 Text(
@@ -157,7 +190,24 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                 color = mainColor,
                 text = "다음",
                 modifier = Modifier,
-                onClick = {TODO()}
+                onClick = {
+                    if (isVerifySend){
+                    val codeString = code.joinToString("")
+                    coroutineScope.launch {
+                        val response = verify(email = emailText, code = codeString)
+                        if (response == "success") {
+                            TODO()
+                        } else {
+                            resultText = "● $response"
+                            resultTextColor = errorTextColor
+                            }
+                        }
+                    }
+                    else {
+                        resultText = "• 인증번호를 발송해주세요."
+                        resultTextColor = errorTextColor
+                    }
+                }
             )
         }
     }
