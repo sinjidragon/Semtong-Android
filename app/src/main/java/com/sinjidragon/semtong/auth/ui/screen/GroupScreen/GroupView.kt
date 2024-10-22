@@ -29,7 +29,6 @@ import com.sinjidragon.semtong.auth.ui.view.component.CodeTextField
 import com.sinjidragon.semtong.auth.ui.view.component.PrivacyPolicyText
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.gray2
-import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor2
 
