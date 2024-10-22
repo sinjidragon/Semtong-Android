@@ -124,7 +124,6 @@ fun SignupScreen1 (navController : NavController){
                     onTextChange = {
                         idText = it
                         resultText = ""
-                        resultTextColor = gray2
                         isIdChecked = false
                                    },
                     text = idText,

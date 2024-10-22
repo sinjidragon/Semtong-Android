@@ -126,7 +126,10 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 BaseTextField(
-                    onTextChange = { emailText = it },
+                    onTextChange = {
+                        emailText = it
+                        resultText = ""
+                                   },
                     text = emailText,
                     icon = R.drawable.email_icon,
                     placeholder = "이메일을 입력해주세요",
@@ -172,7 +175,11 @@ fun SignupScreen2(navController : NavController, idText : String, passwordText :
                     code = code,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally),
-                    onCodeChange = {code = it}
+                    onCodeChange = {
+                        code = it
+                        resultText = ""
+                        isVerifySend = false
+                    }
                 )
             }
         }
