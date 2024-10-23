@@ -1,5 +1,6 @@
 package com.sinjidragon.semtong.group.network
 
+import com.sinjidragon.semtong.group.network.data.CreateResponseBody
 import com.sinjidragon.semtong.group.network.data.JoinRequestBody
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -11,4 +12,8 @@ interface GroupService {
         @Header("Authorization") token: String,
         @Body request: JoinRequestBody
     )
+    @POST("group/create")
+    suspend fun create(
+        @Header("Authorization") token: String,
+    ): CreateResponseBody
 }
