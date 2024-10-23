@@ -132,6 +132,8 @@ fun LoginView (navController : NavController){
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
+                    modifier = Modifier
+                        .padding(start = 40.dp),
                     text = resultText,
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Medium,
