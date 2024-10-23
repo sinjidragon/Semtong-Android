@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.network.api.login
+import com.sinjidragon.semtong.auth.network.token.getRole
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.nav.NavGroup
@@ -177,7 +178,13 @@ fun LoginView (navController : NavController){
                 onClick = {coroutineScope.launch {
                     val response = login(context = context, username = idText, password = passwordText)
                     if (response == "success") {
-                        Log.d("Login", "Login Success")
+                        val role = getRole(context)
+                        if (role == null) {
+                            navController.navigate(NavGroup.GROUP)
+                        }
+                        else {
+                            Log.d("Login", "success")
+                        }
                     }
                     else {
                         resultText = "• $response"
