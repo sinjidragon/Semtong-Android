@@ -1,5 +1,6 @@
-package com.sinjidragon.semtong.auth.ui.view.GroupView
+package com.sinjidragon.semtong.group.ui.view
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,14 +29,23 @@ import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.auth.ui.component.CodeTextField
 import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
+import com.sinjidragon.semtong.group.network.api.create
+import com.sinjidragon.semtong.group.network.api.join
+import com.sinjidragon.semtong.group.network.data.CreateResponseBody
 import com.sinjidragon.semtong.nav.NavGroup
+import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor2
+import kotlinx.coroutines.launch
 
 @Composable
 fun GroupView (navController : NavController){
     var code by remember { mutableStateOf(List(6) { "" }) }
+    var resultText by remember { mutableStateOf("") }
+    var resultTextColor by remember { mutableStateOf(errorTextColor) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -78,12 +89,33 @@ fun GroupView (navController : NavController){
                     code = it
                 }
             )
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                modifier = Modifier
+                    .padding(start = 40.dp),
+                text = resultText,
+                fontFamily = pretendard,//●
+                fontWeight = FontWeight.Medium,
+                color = errorTextColor,
+                fontSize = 10.sp
+            )
             AuthBaseButton(
                 color = Color.White,
                 text = "그룹 참여하기",
                 isEnterButton = true,
-                modifier = Modifier
+                modifier = Modifier,
+                onClick = {
+                    coroutineScope.launch {
+                        val response = join(context, code.joinToString(""))
+                        if (response == "succes"){
+                            Log.d("Group", "success")
+                        }
+                        else {
+                            resultText = "• $response"
+                            resultTextColor = errorTextColor
+                        }
+                    }
+                }
             )
         }
         Column (
@@ -100,7 +132,19 @@ fun GroupView (navController : NavController){
                 color = subColor2,
                 text = "그룹 생성하기",
                 isEnterButton = true,
-                modifier = Modifier
+                modifier = Modifier,
+                onClick = {
+                    coroutineScope.launch {
+                        val response = create(context)
+                        if (response is CreateResponseBody){
+                            TODO()
+                        }
+                        else{
+                            resultText = "• $response"
+                            resultTextColor = errorTextColor
+                        }
+                    }
+                }
             )
         }
     }

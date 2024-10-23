@@ -4,10 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sinjidragon.semtong.auth.ui.screen.FirstView
-import com.sinjidragon.semtong.auth.ui.screen.LoginView
-import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.GetEmailView
-import com.sinjidragon.semtong.auth.ui.screen.SignupScreen.GetIdPasswordView
+import com.sinjidragon.semtong.auth.ui.view.FirstView
+import com.sinjidragon.semtong.auth.ui.view.LoginView
+import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
+import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
+import com.sinjidragon.semtong.group.ui.view.GroupView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -27,6 +28,9 @@ fun NavGraph(navController: NavHostController) {
             val idText = backStackEntry.arguments?.getString("idText") ?: ""
             val passwordText = backStackEntry.arguments?.getString("passwordText") ?: ""
             GetEmailView(navController = navController,idText = idText, passwordText = passwordText)
+        }
+        composable(route = NavGroup.GROUP) {
+            GroupView(navController = navController)
         }
     }
 

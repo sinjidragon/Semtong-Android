@@ -5,4 +5,5 @@ object NavGroup {
     const val LOGIN = "login"
     const val SIGNUP_ID_PASSWORD = "signup_id_password"
     const val SIGNUP_EMAIL = "signup_email"
+    const val GROUP = "group"
 }
