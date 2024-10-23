@@ -177,7 +177,6 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                     onCodeChange = {
                         code = it
                         resultText = ""
-                        isVerifySend = false
                     }
                 )
             }
@@ -204,7 +203,7 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                         if (verifyResponse == "success") {
                             val signupResponse = signup(username = idText, password = passwordText, email = emailText)
                             if (signupResponse == "success") {
-                                TODO()
+
                             }
                             else {
                                 resultText = " $signupResponse"
