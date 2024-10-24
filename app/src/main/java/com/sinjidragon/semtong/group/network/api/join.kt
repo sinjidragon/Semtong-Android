@@ -12,22 +12,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-suspend fun join(context: Context, groupCode: String): String {
+suspend fun join(context: Context, groupCode: String): Any {
     return withContext(Dispatchers.IO) {
         try {
             val accessToken= "Bearer " + getAccToken(context)
-            Log.d("join", "accessToken: $accessToken")
             val groupService = RetrofitClient.groupService
             val joinRequest = JoinRequestBody(groupCode)
-            groupService.join(accessToken,joinRequest)
-            "success"
+            val response = groupService.join(accessToken,joinRequest)
+            response
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             when (e.code()) {
                 401 -> {
                     val refreshToken = getRefToken(context)
                     refreshToken?.let { refresh(context, it) }
-                    join(context, groupCode)
+                    create(context)
                 }
                 else -> {
                     val errorResponse = errorBody?.let { parseErrorResponse(it) }
