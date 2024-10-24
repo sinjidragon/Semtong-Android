@@ -56,6 +56,7 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
     var isVerifySend by remember { mutableStateOf(false) }
 
     Box (
+        
         modifier = Modifier
             .fillMaxSize()
             .background(mainColor)
@@ -156,7 +157,7 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                     text = resultText,
                     fontFamily = pretendard,//●
                     fontWeight = FontWeight.Medium,
-                    color = errorTextColor,
+                    color = resultTextColor,
                     fontSize = 10.sp
                 )
                 Spacer(modifier = Modifier.height(22.dp))
@@ -203,7 +204,7 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                         if (verifyResponse == "success") {
                             val signupResponse = signup(username = idText, password = passwordText, email = emailText)
                             if (signupResponse == "success") {
-
+                                navController.navigate(NavGroup.GROUP)
                             }
                             else {
                                 resultText = " $signupResponse"
