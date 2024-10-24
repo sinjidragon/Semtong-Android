@@ -1,6 +1,5 @@
 package com.sinjidragon.semtong.group.ui.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +31,7 @@ import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
 import com.sinjidragon.semtong.group.network.api.create
 import com.sinjidragon.semtong.group.network.api.join
 import com.sinjidragon.semtong.group.network.data.CreateResponseBody
+import com.sinjidragon.semtong.group.network.data.JoinResponseBody
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
@@ -107,8 +107,8 @@ fun GroupView (navController : NavController){
                 onClick = {
                     coroutineScope.launch {
                         val response = join(context, code.joinToString(""))
-                        if (response == "succes"){
-                            Log.d("Group", "success")
+                        if (response is JoinResponseBody){
+                            navController.navigate("${NavGroup.GROUP_JOIN}/${response.groupname}/${code.joinToString("")}")
                         }
                         else {
                             resultText = "• $response"
@@ -137,7 +137,9 @@ fun GroupView (navController : NavController){
                     coroutineScope.launch {
                         val response = create(context)
                         if (response is CreateResponseBody){
-                            TODO()
+                            val groupName = response.groupname
+                            val groupCode = response.groupcode
+                            navController.navigate("${NavGroup.GROUP_JOIN}/$groupName/$groupCode")
                         }
                         else{
                             resultText = "• $response"
