@@ -9,6 +9,7 @@ import com.sinjidragon.semtong.auth.ui.view.LoginView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
 import com.sinjidragon.semtong.group.ui.view.GroupView
+import com.sinjidragon.semtong.group.ui.view.JoinGroupView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -31,6 +32,11 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = NavGroup.GROUP) {
             GroupView(navController = navController)
+        }
+        composable(route = NavGroup.GROUP_JOIN+"/{groupName}/{groupCode}") {
+            val groupName = it.arguments?.getString("groupName") ?: ""
+            val groupCode = it.arguments?.getString("groupCode") ?: ""
+            JoinGroupView(navController = navController,groupName = groupName, groupCode = groupCode)
         }
     }
 
