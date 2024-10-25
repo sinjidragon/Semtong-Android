@@ -1,11 +1,10 @@
 package com.sinjidragon.semtong.group.network.api
 
 import android.content.Context
-import android.util.Log
 import com.sinjidragon.semtong.auth.network.api.refresh
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
-import com.sinjidragon.semtong.auth.network.token.getAccToken
-import com.sinjidragon.semtong.auth.network.token.getRefToken
+import com.sinjidragon.semtong.auth.network.user.getAccToken
+import com.sinjidragon.semtong.auth.network.user.getRefToken
 import com.sinjidragon.semtong.group.network.RetrofitClient
 import com.sinjidragon.semtong.group.network.data.JoinRequestBody
 import kotlinx.coroutines.Dispatchers

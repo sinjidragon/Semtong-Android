@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.network.token
+package com.sinjidragon.semtong.auth.network.user
 
 import android.content.Context
 import kotlinx.coroutines.flow.first

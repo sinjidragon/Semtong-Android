@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.network.token
+package com.sinjidragon.semtong.auth.network.user
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
@@ -23,10 +23,10 @@ fun saveAccToken(context: Context, token: String) {
         }
     }
 }
-fun saveRole(context: Context, token: String) {
+fun saveRole(context: Context, role: String) {
     runBlocking {
         context.dataStore.edit { preferences ->
-            preferences[ROLES] = token
+            preferences[ROLES] = role
         }
     }
 }

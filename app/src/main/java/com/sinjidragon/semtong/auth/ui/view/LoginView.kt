@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
 import com.sinjidragon.semtong.auth.network.api.login
-import com.sinjidragon.semtong.auth.network.token.getRole
+import com.sinjidragon.semtong.auth.network.user.getRole
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.nav.NavGroup

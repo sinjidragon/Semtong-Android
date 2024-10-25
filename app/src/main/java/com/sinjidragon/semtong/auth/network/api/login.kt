@@ -4,8 +4,8 @@ import android.content.Context
 import com.sinjidragon.semtong.auth.network.RetrofitClient
 import com.sinjidragon.semtong.auth.network.data.LoginRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
-import com.sinjidragon.semtong.auth.network.token.saveAccToken
-import com.sinjidragon.semtong.auth.network.token.saveRefToken
+import com.sinjidragon.semtong.auth.network.user.saveAccToken
+import com.sinjidragon.semtong.auth.network.user.saveRefToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

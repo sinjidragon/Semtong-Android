@@ -3,19 +3,15 @@ package com.sinjidragon.semtong.auth.network.api
 import android.content.Context
 import android.util.Log
 import com.sinjidragon.semtong.auth.network.RetrofitClient
-import com.sinjidragon.semtong.auth.network.data.LoginRequestBody
 import com.sinjidragon.semtong.auth.network.data.RefreshRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
-import com.sinjidragon.semtong.auth.network.token.saveAccToken
-import com.sinjidragon.semtong.auth.network.token.saveRefToken
-import com.sinjidragon.semtong.auth.network.token.saveRole
+import com.sinjidragon.semtong.auth.network.user.saveAccToken
+import com.sinjidragon.semtong.auth.network.user.saveRefToken
+import com.sinjidragon.semtong.auth.network.user.saveRole
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-suspend fun refresh (){
-
-}
 suspend fun refresh(context: Context, refreshToken: String): String? {
     return withContext(Dispatchers.IO) {
         try {
