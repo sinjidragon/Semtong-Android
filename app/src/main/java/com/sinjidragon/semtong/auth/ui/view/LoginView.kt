@@ -1,6 +1,5 @@
 package com.sinjidragon.semtong.auth.ui.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +35,7 @@ import com.sinjidragon.semtong.auth.network.user.getRole
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.nav.NavGroup
+import com.sinjidragon.semtong.ui.component.BaseAlert
 import com.sinjidragon.semtong.ui.component.BaseTextField
 import com.sinjidragon.semtong.ui.theme.errorTextColor
 import com.sinjidragon.semtong.ui.theme.gray2
@@ -45,20 +45,30 @@ import com.sinjidragon.semtong.ui.theme.pretendard
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginView (navController : NavController){
+fun LoginView (navController : NavController,showAlert : Boolean){
     val context = LocalContext.current
     var idText by remember { mutableStateOf("") }
     var passwordText by remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope()
     var resultText by remember { mutableStateOf("") }
     var resultTextColor by remember { mutableStateOf(gray2) }
-
+    var isShowAlert by remember { mutableStateOf(showAlert) }
     Box (
         modifier = Modifier
             .fillMaxSize()
             .background(mainColor)
             .systemBarsPadding()
     ){
+        BaseAlert(
+            showDialog = isShowAlert,
+            onDismiss = { isShowAlert = false },
+            onConfirm = { isShowAlert = false },
+            titleText = "알림",
+            contentText = "토큰이 만료되었습니다.\n다시 로그인 해주세요.",
+            confirmText = "확인",
+            isDismiss = false
+        )
+
         BackButton(
             modifier = Modifier
                 .align(Alignment.TopStart)
@@ -183,7 +193,7 @@ fun LoginView (navController : NavController){
                             navController.navigate(NavGroup.GROUP)
                         }
                         else {
-                            Log.d("Login", "success")
+                            TODO("로그인 성공")
                         }
                     }
                     else {
@@ -203,5 +213,5 @@ fun LoginView (navController : NavController){
 )
 @Composable
 fun LoginViewPreview(){
-    LoginView(navController = NavController(context = LocalContext.current))
+    LoginView(navController = NavController(context = LocalContext.current), showAlert = false)
 }
