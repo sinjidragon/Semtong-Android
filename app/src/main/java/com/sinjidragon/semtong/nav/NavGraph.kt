@@ -19,8 +19,9 @@ fun NavGraph(navController: NavHostController) {
         composable(route = NavGroup.FIRST) {
             FirstView(navController = navController)
         }
-        composable(route = NavGroup.LOGIN) {
-            LoginView(navController = navController)
+        composable(route = NavGroup.LOGIN + "/{showAlert}") {
+            val showAlert = it.arguments?.getString("showAlert")?.toBoolean() ?: false
+            LoginView(navController = navController, showAlert = showAlert)
         }
         composable(route = NavGroup.SIGNUP_ID_PASSWORD) {
             GetIdPasswordView(navController = navController)
