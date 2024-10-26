@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -26,13 +28,40 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.refresh
+import com.sinjidragon.semtong.auth.network.user.getRefToken
+import com.sinjidragon.semtong.auth.network.user.getRole
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
+import kotlinx.coroutines.launch
 
 @Composable
 fun FirstView(navController : NavController) {
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(Unit)  {
+        val refToken = getRefToken(context)
+        if (refToken != null ){
+            coroutineScope.launch {
+                val response = refresh(context = context, refreshToken = refToken)
+                if (response == "success"){
+                    val role = getRole(context)
+                    if (role == null){
+                        navController.navigate(NavGroup.GROUP)
+                    }
+                    else{
+                        TODO()
+                    }
+                }
+                else {
+                    val showAlert = true
+                    navController.navigate("${NavGroup.LOGIN}/$showAlert")
+                }
+            }
+        }
+    }
     Box(modifier = Modifier
         .fillMaxSize()
         .background(mainColor)
@@ -97,7 +126,10 @@ fun FirstView(navController : NavController) {
                 modifier = Modifier,
                 color = mainColor,
                 text = "로그인",
-                onClick = {navController.navigate(NavGroup.LOGIN)}
+                onClick = {
+                    val showAlert = false
+                    navController.navigate("${NavGroup.LOGIN}/$showAlert")
+                }
             )
             Spacer(modifier = Modifier.height(20.dp))
             AuthBaseButton(
