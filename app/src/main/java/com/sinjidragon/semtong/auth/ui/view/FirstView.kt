@@ -52,7 +52,7 @@ fun FirstView(navController : NavController) {
                         navController.navigate(NavGroup.GROUP)
                     }
                     else{
-                        TODO()
+                        TODO("메인으로 바로 이동")
                     }
                 }
                 else {
