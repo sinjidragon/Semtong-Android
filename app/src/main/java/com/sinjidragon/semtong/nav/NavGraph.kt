@@ -10,6 +10,11 @@ import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
 import com.sinjidragon.semtong.group.ui.view.GroupView
 import com.sinjidragon.semtong.group.ui.view.JoinGroupView
+import com.sinjidragon.semtong.main.ui.screen.GiveMeMoneyView
+import com.sinjidragon.semtong.main.ui.screen.GoalView
+import com.sinjidragon.semtong.main.ui.screen.HomeView
+import com.sinjidragon.semtong.main.ui.screen.ProfileView
+import com.sinjidragon.semtong.main.ui.screen.SemtongView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -38,6 +43,21 @@ fun NavGraph(navController: NavHostController) {
             val groupName = it.arguments?.getString("groupName") ?: ""
             val groupCode = it.arguments?.getString("groupCode") ?: ""
             JoinGroupView(navController = navController,groupName = groupName, groupCode = groupCode)
+        }
+        composable(route = NavGroup.HOME) {
+            HomeView(navController = navController)
+        }
+        composable(route = NavGroup.GOAL) {
+            GoalView(navController = navController)
+        }
+        composable(route = NavGroup.PROFILE) {
+            ProfileView(navController = navController)
+        }
+        composable(route = NavGroup.GIVE_ME_MONEY) {
+            GiveMeMoneyView(navController = navController)
+        }
+        composable(route = NavGroup.SEMTONG) {
+            SemtongView(navController = navController)
         }
     }
 
