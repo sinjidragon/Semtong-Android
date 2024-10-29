@@ -13,7 +13,7 @@ interface GroupService {
         @Header("Authorization") token: String,
         @Body request: JoinRequestBody
     ): JoinResponseBody
-    @POST("group/create")
+    @POST("group")
     suspend fun create(
         @Header("Authorization") token: String,
     ): CreateResponseBody
