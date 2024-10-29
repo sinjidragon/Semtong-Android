@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 
 fun Modifier.innerShadow(
     shape: Shape = RoundedCornerShape(0.dp),
-    color: Color = Color.Black.copy(0.05f),
+    color: Color = Color.Black.copy(0.2f),
     blur: Dp = 4.dp,
     offsetY: Dp = 2.dp,
     offsetX: Dp = 0.dp,
@@ -56,7 +56,7 @@ fun Modifier.innerShadow(
     }
 }
 fun Modifier.dropShadow(
-    shape: Shape,
+    shape: Shape = RoundedCornerShape(0.dp),
     color: Color = Color.Black.copy(0.05f),
     blur: Dp = 6.dp,
     offsetY: Dp = 2.dp,
@@ -75,7 +75,6 @@ fun Modifier.dropShadow(
                 }
             }
         }
-
         drawIntoCanvas { canvas ->
             canvas.save()
             canvas.translate(offsetX.toPx(), offsetY.toPx())
