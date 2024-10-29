@@ -193,7 +193,7 @@ fun LoginView (navController : NavController,showAlert : Boolean){
                             navController.navigate(NavGroup.GROUP)
                         }
                         else {
-                            TODO("로그인 성공")
+                            navController.navigate(NavGroup.HOME)
                         }
                     }
                     else {
