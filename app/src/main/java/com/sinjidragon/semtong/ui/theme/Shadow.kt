@@ -3,6 +3,7 @@ package com.sinjidragon.semtong.ui.theme
 import android.graphics.BlurMaskFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -19,7 +20,7 @@ import androidx.compose.ui.unit.dp
 
 
 fun Modifier.innerShadow(
-    shape: Shape,
+    shape: Shape = RoundedCornerShape(0.dp),
     color: Color = Color.Black.copy(0.05f),
     blur: Dp = 4.dp,
     offsetY: Dp = 2.dp,
