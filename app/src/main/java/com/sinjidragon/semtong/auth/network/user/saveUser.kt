@@ -10,31 +10,51 @@ val ACC_TOKEN = stringPreferencesKey("acc_token")
 val ROLES = stringPreferencesKey("roles")
 val USER_ID = stringPreferencesKey("user_id")
 
-fun saveRefToken(context: Context, token: String) {
+fun saveRefToken(context: Context, token: String?) {
     runBlocking {
         context.dataStore.edit { preferences ->
-            preferences[REF_TOKEN] = token
+            if (token != null) {
+                preferences[REF_TOKEN] = token
+            }
+            else {
+                preferences.remove(REF_TOKEN)
+            }
         }
     }
 }
-fun saveAccToken(context: Context, token: String) {
+fun saveAccToken(context: Context, token: String?) {
     runBlocking {
         context.dataStore.edit { preferences ->
-            preferences[ACC_TOKEN] = token
+            if (token != null) {
+                preferences[ACC_TOKEN] = token
+            }
+            else {
+                preferences.remove(ACC_TOKEN)
+            }
         }
     }
 }
-fun saveRole(context: Context, role: String) {
+fun saveRole(context: Context, role: String?) {
     runBlocking {
         context.dataStore.edit { preferences ->
-            preferences[ROLES] = role
+            if (role != null) {
+                preferences[ROLES] = role
+            }
+            else {
+                preferences.remove(ROLES)
+            }
         }
     }
 }
-fun saveUserId(context: Context, id: String) {
+fun saveUserId(context: Context, id: String?) {
     runBlocking {
         context.dataStore.edit { preferences ->
-            preferences[USER_ID] = id
+            if (id != null) {
+                preferences[USER_ID] = id
+            }
+            else {
+                preferences.remove(USER_ID)
+            }
         }
     }
 }
