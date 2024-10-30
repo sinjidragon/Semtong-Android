@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
 
@@ -27,10 +28,12 @@ fun EnterBar(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     text : String = "userId",
+    textColor : Color = Color.Black,
     isEnterButton : Boolean = false,
     isFullClickable : Boolean = false,
     isButton : Boolean = true,
-    buttonText : String = ""
+    buttonText : String = "",
+    enterButtonColor : Color = mainColor
 ){
     Box(
         modifier = modifier
@@ -55,7 +58,8 @@ fun EnterBar(
                 text = text,
                 fontFamily = pretendard,
                 fontWeight = FontWeight.Normal,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                color = textColor
             )
             if (isButton) {
                 if (isEnterButton) {
@@ -66,7 +70,7 @@ fun EnterBar(
                             .clickable { onClick() },
                         painter = painterResource(id = R.drawable.enter_button),
                         contentDescription = "",
-                        tint = subColor
+                        tint = enterButtonColor
                     )
                 }
                 else {
