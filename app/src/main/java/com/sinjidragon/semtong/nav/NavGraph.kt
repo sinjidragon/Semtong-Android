@@ -10,11 +10,11 @@ import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
 import com.sinjidragon.semtong.group.ui.view.GroupView
 import com.sinjidragon.semtong.group.ui.view.JoinGroupView
-import com.sinjidragon.semtong.main.ui.screen.GiveMeMoneyView
-import com.sinjidragon.semtong.main.ui.screen.GoalView
-import com.sinjidragon.semtong.main.ui.screen.HomeView
-import com.sinjidragon.semtong.main.ui.screen.ProfileView
-import com.sinjidragon.semtong.main.ui.screen.SemtongView
+import com.sinjidragon.semtong.main.ui.view.GiveMeMoneyView
+import com.sinjidragon.semtong.main.ui.view.GoalView
+import com.sinjidragon.semtong.main.ui.view.HomeView
+import com.sinjidragon.semtong.main.ui.view.ProfileView
+import com.sinjidragon.semtong.main.ui.view.SemtongView
 import com.sinjidragon.semtong.ui.view.SplashView
 
 @Composable

@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.main.ui.screen
+package com.sinjidragon.semtong.main.ui.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import com.sinjidragon.semtong.main.ui.component.AppBar
 import com.sinjidragon.semtong.main.ui.component.BottomNav
 
 @Composable
-fun ProfileView (navController : NavController){
+fun GiveMeMoneyView (navController : NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
