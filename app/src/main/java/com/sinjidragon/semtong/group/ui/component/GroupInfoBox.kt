@@ -43,7 +43,7 @@ fun GroupInfoBox(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 37.dp),
-            text = "\"$groupName\"의 그룹",
+            text = groupName,
             fontFamily = pretendard,
             fontWeight = FontWeight.Medium,
             fontSize = 18.sp,
