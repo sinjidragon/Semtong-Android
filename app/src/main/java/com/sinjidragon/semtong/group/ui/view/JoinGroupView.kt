@@ -3,7 +3,10 @@ package com.sinjidragon.semtong.group.ui.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -22,11 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
+import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
+import com.sinjidragon.semtong.group.network.api.create
+import com.sinjidragon.semtong.group.network.data.CreateResponseBody
 import com.sinjidragon.semtong.group.ui.component.GroupInfoBox
 import com.sinjidragon.semtong.nav.NavGroup
+import com.sinjidragon.semtong.ui.theme.errorTextColor
+import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor2
+import kotlinx.coroutines.launch
 
 @Composable
 fun JoinGroupView(navController : NavController, groupName : String, groupCode : String) {
@@ -66,6 +76,25 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
             groupName = groupName,
             groupCode = groupCode,
         )
+        Column (
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .offset(y = (-65).dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            PrivacyPolicyText(
+                modifier = Modifier
+            )
+            Spacer(modifier = Modifier.height(9.dp))
+            AuthBaseButton(
+                color = mainColor,
+                text = "완료",
+                modifier = Modifier,
+                onClick = {
+                    navController.navigate(NavGroup.HOME)
+                }
+            )
+        }
     }
 }
 @Preview
