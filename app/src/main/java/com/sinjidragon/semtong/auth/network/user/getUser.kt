@@ -22,3 +22,9 @@ fun getRole(context: Context): String? {
         preferences[ROLES]
     }
 }
+fun getUserId(context: Context): String? {
+    return runBlocking {
+        val preferences = context.dataStore.data.first()
+        preferences[USER_ID]
+    }
+}
