@@ -1,6 +1,7 @@
 package com.sinjidragon.semtong.nav
 
 object NavGroup {
+    const val SPLASH = "splash"
     const val FIRST = "first"
     const val LOGIN = "login"
     const val SIGNUP_ID_PASSWORD = "signup_id_password"

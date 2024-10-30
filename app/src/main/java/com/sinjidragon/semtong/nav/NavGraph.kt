@@ -15,12 +15,16 @@ import com.sinjidragon.semtong.main.ui.screen.GoalView
 import com.sinjidragon.semtong.main.ui.screen.HomeView
 import com.sinjidragon.semtong.main.ui.screen.ProfileView
 import com.sinjidragon.semtong.main.ui.screen.SemtongView
+import com.sinjidragon.semtong.ui.view.SplashView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
-    val startDestination = NavGroup.FIRST
+    val startDestination = NavGroup.SPLASH
 
     NavHost(navController = navController, startDestination = startDestination) {
+        composable(route = NavGroup.SPLASH) {
+            SplashView(navController = navController)
+        }
         composable(route = NavGroup.FIRST) {
             FirstView(navController = navController)
         }
