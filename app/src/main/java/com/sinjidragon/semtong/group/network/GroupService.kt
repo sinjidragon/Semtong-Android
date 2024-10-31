@@ -34,4 +34,8 @@ interface GroupService {
     suspend fun leaveGroup(
         @Header("Authorization") token: String,
     )
+    @DELETE("group")
+    suspend fun delete(
+        @Header("Authorization") token: String,
+    )
 }
