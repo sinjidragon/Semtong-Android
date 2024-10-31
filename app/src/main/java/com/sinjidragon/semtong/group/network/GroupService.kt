@@ -25,7 +25,7 @@ interface GroupService {
     suspend fun getGroupInfo(
         @Header("Authorization") token: String,
     ): GroupInfo
-    @DELETE("group/member")
+    @POST("group/member")
     suspend fun deleteMember(
         @Header("Authorization") token: String,
         @Body request: UserInfo

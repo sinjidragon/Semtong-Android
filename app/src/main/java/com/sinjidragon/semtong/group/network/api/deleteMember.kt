@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 data class UserInfo(
-    val userId : Int
+    val userid : Int
 )
 
 suspend fun deleteMember(context: Context, userId : Int): String {
