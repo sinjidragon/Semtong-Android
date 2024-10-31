@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.auth.ui.component.BackButton
+import com.sinjidragon.semtong.group.network.api.delete
 import com.sinjidragon.semtong.group.network.api.deleteMember
 import com.sinjidragon.semtong.group.network.api.getGroupInfo
 import com.sinjidragon.semtong.group.network.data.GroupInfo
@@ -157,7 +158,12 @@ fun GroupSettingView_AGENT(navController: NavController) {
                 onClick = {
                     alertContent = "정말로 삭제하시겠습니까?"
                     alertFunction = {
-                        TODO("그룹삭제")
+                        coroutineScope.launch {
+                            val result = delete(context)
+                            if (result == "success"){
+                                navController.navigate(NavGroup.GROUP)
+                            }
+                        }
                     }
                     showDialog = true
                 }
