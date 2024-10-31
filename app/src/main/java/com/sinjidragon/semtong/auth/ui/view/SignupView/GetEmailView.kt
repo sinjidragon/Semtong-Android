@@ -204,7 +204,8 @@ fun GetEmailView(navController : NavController, idText : String, passwordText : 
                         if (verifyResponse == "success") {
                             val signupResponse = signup(username = idText, password = passwordText, email = emailText)
                             if (signupResponse == "success") {
-                                navController.navigate(NavGroup.LOGIN)
+                                val showAlert = false
+                                navController.navigate("${NavGroup.LOGIN}/$showAlert")
                             }
                             else {
                                 resultText = " $signupResponse"
