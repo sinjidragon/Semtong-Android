@@ -1,11 +1,11 @@
 package com.sinjidragon.semtong.group.ui.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.buildAnnotatedString
@@ -32,17 +33,20 @@ fun GroupInfoBox(
 ) {
     val clipboardManager = LocalClipboardManager.current
     val codeAnnotated = buildAnnotatedString { append(groupCode)}
-    Box (modifier=modifier.fillMaxWidth()){
+    Box (modifier = modifier.size(270.dp,150.dp)){
         Image(
             modifier = Modifier
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .size(260.dp)
+                .background(Color.Transparent)
+            ,
             painter = painterResource(id = R.drawable.group_info),
             contentDescription = "그룹 정보"
         )
         Text(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .offset(y = 37.dp),
+                .offset(y = 30.dp),
             text = groupName,
             fontFamily = pretendard,
             fontWeight = FontWeight.Medium,
@@ -52,7 +56,7 @@ fun GroupInfoBox(
         Row(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .offset(y = 75.dp)
+                .offset(y = 65.dp)
         ) {
             Text(
                 modifier = Modifier,
@@ -79,7 +83,8 @@ fun GroupInfoBox(
 
 @Preview(
     showBackground = true,
-    showSystemUi = true
+    showSystemUi = true,
+
 )
 @Composable
 fun GroupInfoBoxPreview(){
