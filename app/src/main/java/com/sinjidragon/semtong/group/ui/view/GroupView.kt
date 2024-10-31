@@ -59,7 +59,7 @@ fun GroupView (navController : NavController){
             color = Color.Black
         )
         Text(
-            text = "그룹설정",
+            text = "그룹 설정",
             modifier = Modifier
                 .align(Alignment.TopCenter),
             fontSize = 16.sp,
@@ -118,37 +118,28 @@ fun GroupView (navController : NavController){
                 }
             )
         }
-        Column (
+        AuthBaseButton(
+            color = subColor2,
+            text = "그룹 생성하기",
+            isEnterButton = true,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-65).dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            PrivacyPolicyText(
-                modifier = Modifier
-            )
-            Spacer(modifier = Modifier.height(9.dp))
-            AuthBaseButton(
-                color = subColor2,
-                text = "그룹 생성하기",
-                isEnterButton = true,
-                modifier = Modifier,
-                onClick = {
-                    coroutineScope.launch {
-                        val response = create(context)
-                        if (response is CreateResponseBody){
-                            val groupName = response.groupname
-                            val groupCode = response.groupcode
-                            navController.navigate("${NavGroup.GROUP_JOIN}/$groupName/$groupCode")
-                        }
-                        else{
-                            resultText = "• $response"
-                            resultTextColor = errorTextColor
-                        }
+            onClick = {
+                coroutineScope.launch {
+                    val response = create(context)
+                    if (response is CreateResponseBody){
+                        val groupName = response.groupname
+                        val groupCode = response.groupcode
+                        navController.navigate("${NavGroup.GROUP_JOIN}/$groupName/$groupCode")
+                    }
+                    else{
+                        resultText = "• $response"
+                        resultTextColor = errorTextColor
                     }
                 }
-            )
-        }
+            }
+        )
     }
 }
 @Preview(

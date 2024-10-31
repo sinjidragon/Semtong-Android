@@ -53,7 +53,7 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
             color = Color.Black
         )
         Text(
-            text = "그룹설정",
+            text = "그룹 설정",
             modifier = Modifier
                 .align(Alignment.TopCenter),
             fontSize = 16.sp,
@@ -76,27 +76,19 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
             groupName = groupName,
             groupCode = groupCode,
         )
-        Column (
+        AuthBaseButton(
+            color = mainColor,
+            text = "완료",
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .offset(y = (-65).dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            PrivacyPolicyText(
-                modifier = Modifier
-            )
-            Spacer(modifier = Modifier.height(9.dp))
-            AuthBaseButton(
-                color = mainColor,
-                text = "완료",
-                modifier = Modifier,
-                onClick = {
-                    navController.navigate(NavGroup.HOME)
-                }
-            )
-        }
+            onClick = {
+                navController.navigate(NavGroup.HOME)
+            }
+        )
     }
 }
+
 @Preview
 @Composable
 fun JoinGroupViewPreview() {
