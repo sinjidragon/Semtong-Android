@@ -6,6 +6,7 @@ import com.sinjidragon.semtong.auth.network.data.LoginRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import com.sinjidragon.semtong.auth.network.user.saveAccToken
 import com.sinjidragon.semtong.auth.network.user.saveRefToken
+import com.sinjidragon.semtong.auth.network.user.saveRole
 import com.sinjidragon.semtong.auth.network.user.saveUserId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,6 +20,7 @@ suspend fun login(context: Context, username: String, password: String): String 
             val response = authService.login(loginRequest)
             saveAccToken(context, response.accessToken)
             saveRefToken(context, response.refreshToken)
+            saveRole(context,response.userRole)
             saveUserId(context, username)
             "success"
         } catch (e: HttpException) {
