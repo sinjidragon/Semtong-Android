@@ -8,6 +8,8 @@ import com.sinjidragon.semtong.auth.ui.view.FirstView
 import com.sinjidragon.semtong.auth.ui.view.LoginView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
 import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
+import com.sinjidragon.semtong.group.ui.view.GroupSettingView_AGENT
+import com.sinjidragon.semtong.group.ui.view.GroupSettingView_MEMBER
 import com.sinjidragon.semtong.group.ui.view.GroupView
 import com.sinjidragon.semtong.group.ui.view.JoinGroupView
 import com.sinjidragon.semtong.main.ui.view.GiveMeMoneyView
@@ -62,6 +64,12 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = NavGroup.SEMTONG) {
             SemtongView(navController = navController)
+        }
+        composable(route = NavGroup.GROUP_SETTING_AGENT) {
+            GroupSettingView_AGENT(navController = navController)
+        }
+        composable(route = NavGroup.GROUP_SETTING_MEMBER) {
+            GroupSettingView_MEMBER(navController = navController)
         }
     }
 

@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.user.getRole
 import com.sinjidragon.semtong.auth.network.user.getUserId
 import com.sinjidragon.semtong.auth.network.user.saveAccToken
 import com.sinjidragon.semtong.auth.network.user.saveRefToken
@@ -97,7 +98,15 @@ fun ProfileView (navController : NavController){
                 isFullClickable = true,
                 isEnterButton = true,
                 enterButtonColor = gray2,
-                onClick = {TODO("그룹설정창 이동")}
+                onClick = {
+                    val role = getRole(context)
+                    if (role == "AGENT") {
+                        navController.navigate(NavGroup.GROUP_SETTING_AGENT)
+                    }
+                    else if (role == "MEMBER") {
+                        navController.navigate(NavGroup.GROUP_SETTING_MEMBER)
+                    }
+                }
             )
             EnterBar(
                 text = "로그아웃",

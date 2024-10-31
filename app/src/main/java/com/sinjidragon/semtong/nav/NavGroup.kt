@@ -13,4 +13,6 @@ object NavGroup {
     const val GIVE_ME_MONEY = "give_me_money"
     const val PROFILE = "profile"
     const val SEMTONG = "semtong"
+    const val GROUP_SETTING_AGENT = "group_setting_AGENT"
+    const val GROUP_SETTING_MEMBER = "group_setting_member"
 }
