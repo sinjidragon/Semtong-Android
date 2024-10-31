@@ -27,7 +27,6 @@ import androidx.navigation.NavController
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.auth.ui.component.CodeTextField
-import com.sinjidragon.semtong.auth.ui.component.PrivacyPolicyText
 import com.sinjidragon.semtong.group.network.api.create
 import com.sinjidragon.semtong.group.network.api.join
 import com.sinjidragon.semtong.group.network.data.CreateResponseBody
