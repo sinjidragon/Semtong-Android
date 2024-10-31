@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.group.network.api.getGroupInfo
+import com.sinjidragon.semtong.group.network.api.leaveGroup
 import com.sinjidragon.semtong.group.network.data.GroupInfo
 import com.sinjidragon.semtong.group.network.data.Member
 import com.sinjidragon.semtong.group.ui.component.GroupInfoBox
@@ -37,6 +39,7 @@ import com.sinjidragon.semtong.ui.component.BaseAlert
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
 import com.sinjidragon.semtong.ui.theme.subColor2
+import kotlinx.coroutines.launch
 
 @Composable
 fun GroupSettingView_MEMBER(navController: NavController) {
@@ -48,6 +51,7 @@ fun GroupSettingView_MEMBER(navController: NavController) {
     var showDialog by remember { mutableStateOf(false) }
     var alertContent by remember { mutableStateOf("") }
     var alertFunction by remember { mutableStateOf({}) }
+    val coroutineScope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         val response = getGroupInfo(context)
         if (response is GroupInfo) {
@@ -139,7 +143,12 @@ fun GroupSettingView_MEMBER(navController: NavController) {
                 onClick = {
                     alertContent = "정말로 탈퇴하시겠습니까?"
                     alertFunction = {
-                        TODO("그룹탈퇴")
+                       coroutineScope.launch {
+                           val result = leaveGroup(context)
+                           if (result == "success"){
+                               navController.navigate(NavGroup.GROUP)
+                           }
+                       }
                     }
                     showDialog = true
                 }
