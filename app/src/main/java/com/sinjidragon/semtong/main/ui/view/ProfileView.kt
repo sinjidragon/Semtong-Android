@@ -15,7 +15,11 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +43,7 @@ import com.sinjidragon.semtong.main.ui.component.AppBar
 import com.sinjidragon.semtong.main.ui.component.BottomNav
 import com.sinjidragon.semtong.main.ui.component.EnterBar
 import com.sinjidragon.semtong.nav.NavGroup
+import com.sinjidragon.semtong.ui.component.BaseAlert
 import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
@@ -50,6 +55,9 @@ fun ProfileView (navController : NavController){
     val context = LocalContext.current
     val userId = getUserId(context)
     val coroutineScope = rememberCoroutineScope()
+    var showAlert by remember { mutableStateOf(false) }
+    var onConfirm by remember { mutableStateOf({})}
+    var alertContent by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,6 +71,16 @@ fun ProfileView (navController : NavController){
                 .height(122.dp)
                 .clip(RoundedCornerShape(bottomStart = 8.dp, topStart = 8.dp))
                 .background(subColor2),
+        )
+        BaseAlert(
+            contentText = alertContent,
+            showDialog = showAlert,
+            isDismiss = true,
+            onDismiss = {showAlert = false},
+            onConfirm = {
+                onConfirm()
+                showAlert = false
+            }
         )
         Image(
             modifier = Modifier
@@ -118,11 +136,15 @@ fun ProfileView (navController : NavController){
                 isEnterButton = true,
                 enterButtonColor = gray2,
                 onClick = {
-                    saveAccToken(context = context, token = null)
-                    saveRefToken(context = context, token = null)
-                    saveRole(context = context, role = null)
-                    saveUserId(context = context, id = null)
-                    navController.navigate(NavGroup.FIRST)
+                    alertContent = "정말로 로그아웃 하시겠습니까?"
+                    onConfirm = {
+                        saveAccToken(context = context, token = null)
+                        saveRefToken(context = context, token = null)
+                        saveRole(context = context, role = null)
+                        saveUserId(context = context, id = null)
+                        navController.navigate(NavGroup.FIRST)
+                    }
+                    showAlert = true
                 }
             )
             EnterBar(
@@ -132,12 +154,16 @@ fun ProfileView (navController : NavController){
                 enterButtonColor = subColor,
                 textColor = subColor,
                 onClick = {
-                    coroutineScope.launch {
-                        val result = deleteUser(context)
-                        if (result == "success") {
-                            navController.navigate(NavGroup.FIRST)
+                    alertContent = "정말로 탈퇴 하시겠습니까?"
+                    onConfirm = {
+                        coroutineScope.launch {
+                            val result = deleteUser(context)
+                            if (result == "success") {
+                                navController.navigate(NavGroup.FIRST)
+                            }
                         }
                     }
+                    showAlert = true
                 }
             )
         }
