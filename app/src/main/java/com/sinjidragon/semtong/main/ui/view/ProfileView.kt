@@ -88,12 +88,12 @@ fun ProfileView (navController : NavController){
                 .offset(y = 327.dp)
         ){
             EnterBar(
-                text = "개인정보 이용 약관",
+                text = "이용 약관",
                 isFullClickable = true,
                 isEnterButton = true,
                 enterButtonColor = gray2,
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://semtong1.notion.site/1265ad66b02780cc9f9dc41dd8d4f974?pvs=4"))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://semtong1.notion.site/1265ad66b02780c3bebee12c3c82ce60?pvs=74"))
                     context.startActivity(intent)
                 }
             )
