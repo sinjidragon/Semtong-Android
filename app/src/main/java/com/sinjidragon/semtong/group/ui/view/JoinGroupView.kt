@@ -53,7 +53,7 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
             color = Color.Black
         )
         Text(
-            text = "회원가입",
+            text = "그룹설정",
             modifier = Modifier
                 .align(Alignment.TopCenter),
             fontSize = 16.sp,
