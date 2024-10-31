@@ -6,7 +6,9 @@ import com.sinjidragon.semtong.auth.network.data.RefreshRequestBody
 import com.sinjidragon.semtong.auth.network.data.SignupRequestBody
 import com.sinjidragon.semtong.auth.network.data.VerifyRequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -17,10 +19,14 @@ interface AuthService {
     suspend fun checkUsername(@Query("username") username: String)
     @POST("auth/sendmail")
     suspend fun sendMail(@Query("email") email: String)
-    @POST("/auth/verify")
+    @POST("auth/verify")
     suspend fun verify(@Body request: VerifyRequestBody)
-    @POST("/auth/refresh")
+    @POST("auth/refresh")
     suspend fun refresh(@Body request: RefreshRequestBody): LoginResponseBody
-    @POST("/auth/signup")
+    @POST("auth/signup")
     suspend fun signup(@Body request: SignupRequestBody)
+    @DELETE("user")
+    suspend fun deleteUser(
+        @Header("Authorization") token: String
+    )
 }

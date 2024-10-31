@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.deleteUser
 import com.sinjidragon.semtong.auth.network.user.getRole
 import com.sinjidragon.semtong.auth.network.user.getUserId
 import com.sinjidragon.semtong.auth.network.user.saveAccToken
@@ -41,11 +43,13 @@ import com.sinjidragon.semtong.ui.theme.gray2
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor
 import com.sinjidragon.semtong.ui.theme.subColor2
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileView (navController : NavController){
     val context = LocalContext.current
     val userId = getUserId(context)
+    val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -128,7 +132,12 @@ fun ProfileView (navController : NavController){
                 enterButtonColor = subColor,
                 textColor = subColor,
                 onClick = {
-                    TODO("api 안나옴")
+                    coroutineScope.launch {
+                        val result = deleteUser(context)
+                        if (result == "success") {
+                            navController.navigate(NavGroup.FIRST)
+                        }
+                    }
                 }
             )
         }
