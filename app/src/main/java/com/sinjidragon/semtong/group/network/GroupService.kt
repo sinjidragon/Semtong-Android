@@ -30,4 +30,8 @@ interface GroupService {
         @Header("Authorization") token: String,
         @Body request: UserInfo
     )
+    @POST("group/leave")
+    suspend fun leaveGroup(
+        @Header("Authorization") token: String,
+    )
 }
