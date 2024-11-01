@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.sinjidragon.semtong.auth.ui.view.FirstView
 import com.sinjidragon.semtong.auth.ui.view.LoginView
-import com.sinjidragon.semtong.auth.ui.view.SignupView.GetEmailView
-import com.sinjidragon.semtong.auth.ui.view.SignupView.GetIdPasswordView
+import com.sinjidragon.semtong.auth.ui.view.signupView.GetEmailView
+import com.sinjidragon.semtong.auth.ui.view.signupView.GetIdPasswordView
 import com.sinjidragon.semtong.group.ui.view.GroupSettingView_AGENT
 import com.sinjidragon.semtong.group.ui.view.GroupSettingView_MEMBER
 import com.sinjidragon.semtong.group.ui.view.GroupView
