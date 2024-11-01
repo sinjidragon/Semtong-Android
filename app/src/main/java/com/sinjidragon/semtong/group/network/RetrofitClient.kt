@@ -8,10 +8,11 @@ object RetrofitClient {
     private var retrofit: Retrofit? = null
 
 
-    fun getClient(baseUrl: String): Retrofit {
+    private fun getClient(): Retrofit {
         if (retrofit == null) {
+            val url = BuildConfig.BASE_URL
             retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
@@ -19,7 +20,6 @@ object RetrofitClient {
     }
 
     val groupService: GroupService by lazy {
-        val url = BuildConfig.BASE_URL
-        getClient(url).create(GroupService::class.java)
+        getClient().create(GroupService::class.java)
     }
 }
