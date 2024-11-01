@@ -13,7 +13,7 @@ suspend fun signup(username: String, password: String, email:String): String {
         try {
             val authService = RetrofitClient.authService
             val signupRequest = SignupRequestBody(username, password, email)
-            val response = authService.signup(signupRequest)
+            authService.signup(signupRequest)
             "success"
         } catch (e: HttpException) {
             Log.d("login", "HttpException: ${e.response()?.toString()}")

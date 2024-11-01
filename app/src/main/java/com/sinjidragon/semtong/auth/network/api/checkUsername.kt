@@ -2,7 +2,6 @@ package com.sinjidragon.semtong.auth.network.api
 
 import android.util.Log
 import com.sinjidragon.semtong.auth.network.RetrofitClient
-import com.sinjidragon.semtong.auth.network.data.VerifyRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
