@@ -5,6 +5,7 @@ import android.util.Log
 import com.sinjidragon.semtong.auth.network.RetrofitClient
 import com.sinjidragon.semtong.auth.network.data.RefreshRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
+import com.sinjidragon.semtong.auth.network.user.getRefToken
 import com.sinjidragon.semtong.auth.network.user.saveAccToken
 import com.sinjidragon.semtong.auth.network.user.saveRefToken
 import com.sinjidragon.semtong.auth.network.user.saveRole
@@ -12,9 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-suspend fun refresh(context: Context, refreshToken: String): String? {
+suspend fun refresh(context: Context): String {
     return withContext(Dispatchers.IO) {
         try {
+            val refreshToken = "" + getRefToken(context)
             val authService = RetrofitClient.authService
             val refreshRequest = RefreshRequestBody(refreshToken)
             val response = authService.refresh(refreshRequest)

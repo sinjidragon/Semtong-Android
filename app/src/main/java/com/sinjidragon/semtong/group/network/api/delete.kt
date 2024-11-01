@@ -4,7 +4,6 @@ import android.content.Context
 import com.sinjidragon.semtong.auth.network.api.refresh
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import com.sinjidragon.semtong.auth.network.user.getAccToken
-import com.sinjidragon.semtong.auth.network.user.getRefToken
 import com.sinjidragon.semtong.auth.network.user.saveRole
 import com.sinjidragon.semtong.group.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +22,7 @@ suspend fun delete(context: Context): String {
             val errorBody = e.response()?.errorBody()?.string()
             when (e.code()) {
                 401 -> {
-                    val refreshToken = getRefToken(context)
-                    refreshToken?.let { refresh(context, it) }
+                    refresh(context)
                     create(context)
                     ""
                 }

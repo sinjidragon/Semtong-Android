@@ -21,8 +21,7 @@ suspend fun getGroupInfo(context: Context): Any {
             val errorBody = e.response()?.errorBody()?.string()
             when (e.code()) {
                 401 -> {
-                    val refreshToken = getRefToken(context)
-                    refreshToken?.let { refresh(context, it) }
+                    refresh(context)
                     create(context)
                 }
                 else -> {

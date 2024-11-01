@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sinjidragon.semtong.R
+import com.sinjidragon.semtong.auth.network.api.refresh
 import com.sinjidragon.semtong.auth.ui.component.AuthBaseButton
 import com.sinjidragon.semtong.auth.ui.component.BackButton
 import com.sinjidragon.semtong.group.ui.component.GroupInfoBox
@@ -27,6 +29,7 @@ import com.sinjidragon.semtong.nav.NavGroup
 import com.sinjidragon.semtong.ui.theme.mainColor
 import com.sinjidragon.semtong.ui.theme.pretendard
 import com.sinjidragon.semtong.ui.theme.subColor2
+import kotlinx.coroutines.launch
 
 @Composable
 fun JoinGroupView(navController : NavController, groupName : String, groupCode : String) {
@@ -35,6 +38,8 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
         .background(subColor2)
         .systemBarsPadding()
     ){
+        val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
         BackButton(
             modifier = Modifier
                 .align(Alignment.TopStart)
@@ -73,7 +78,10 @@ fun JoinGroupView(navController : NavController, groupName : String, groupCode :
                 .align(Alignment.BottomCenter)
                 .offset(y = (-65).dp),
             onClick = {
-                navController.navigate(NavGroup.HOME)
+                coroutineScope.launch {
+                    refresh(context)
+                    navController.navigate(NavGroup.HOME)
+                }
             }
         )
     }

@@ -34,7 +34,7 @@ fun SplashView (navController: NavController){
         val refToken = getRefToken(context)
         if (refToken != null ){
             coroutineScope.launch {
-                val response = refresh(context = context, refreshToken = refToken)
+                val response = refresh(context = context)
                 if (response == "success"){
                     val role = getRole(context)
                     if (role == null){
