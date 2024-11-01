@@ -202,5 +202,5 @@ fun currentRoute(navController: NavController): String?{
 @Preview(showSystemUi = true)
 @Composable
 fun BottomNavPreview(){
-    BottomNav(navController = NavController(context = LocalContext.current),)
+    BottomNav(navController = NavController(context = LocalContext.current))
 }
