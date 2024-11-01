@@ -1,4 +1,4 @@
-package com.sinjidragon.semtong.auth.ui.view.SignupView
+package com.sinjidragon.semtong.auth.ui.view.signupView
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
