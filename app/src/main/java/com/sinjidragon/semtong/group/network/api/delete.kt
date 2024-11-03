@@ -5,7 +5,7 @@ import com.sinjidragon.semtong.auth.network.api.refresh
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import com.sinjidragon.semtong.auth.network.user.getAccToken
 import com.sinjidragon.semtong.auth.network.user.saveRole
-import com.sinjidragon.semtong.group.network.RetrofitClient
+import com.sinjidragon.semtong.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException

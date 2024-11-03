@@ -2,7 +2,7 @@ package com.sinjidragon.semtong.auth.network.api
 
 import android.content.Context
 import android.util.Log
-import com.sinjidragon.semtong.auth.network.RetrofitClient
+import com.sinjidragon.semtong.network.RetrofitClient
 import com.sinjidragon.semtong.auth.network.data.RefreshRequestBody
 import com.sinjidragon.semtong.auth.network.parseErrorResponse
 import com.sinjidragon.semtong.auth.network.user.getRefToken
