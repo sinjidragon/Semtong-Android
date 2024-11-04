@@ -25,7 +25,7 @@ suspend fun create(context: Context): Any {
                 }
                 else -> {
                     val errorResponse = errorBody?.let { parseErrorResponse(it) }
-                    errorResponse?.error ?: "알 수 없는 오류가 발생했습니다."
+                    errorResponse?.message ?: "알 수 없는 오류가 발생했습니다."
                 }
             }
         } catch (e: Exception) {

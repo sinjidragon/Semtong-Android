@@ -29,7 +29,7 @@ suspend fun refresh(context: Context): String {
             val errorBody = e.response()?.errorBody()?.string()
             Log.d("refresh", "Error body: $errorBody")
             val errorResponse = errorBody?.let { parseErrorResponse(it) }
-            errorResponse?.error ?: "알 수 없는 오류가 발생했습니다."
+            errorResponse?.message ?: "알 수 없는 오류가 발생했습니다."
         } catch (e: Exception) {
             e.printStackTrace()
             "서버 연결 에러입니다."

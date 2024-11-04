@@ -15,8 +15,8 @@ suspend fun checkUsername(username: String): String {
             "success"
         } catch (e: HttpException) {
             val errorResponse = e.response()?.errorBody()?.string()?.let { parseErrorResponse(it) }
-            Log.d("checkUsername", errorResponse?.error ?: "다시 시도해주세요.")
-            errorResponse?.error ?: "다시 시도해주세요."
+            Log.d("checkUsername", errorResponse?.message ?: "다시 시도해주세요.")
+            errorResponse?.message ?: "다시 시도해주세요."
         } catch (e: Exception) {
             e.printStackTrace()
             "서버 연결 에러입니다."
